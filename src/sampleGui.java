@@ -10,44 +10,73 @@ import java.awt.*;
 import javax.swing.*;
 
 import java.awt.event.*;
-public class sampleGui {
+public class sampleGui extends JFrame{
 	protected static void init(){
 		
 		JFrame frame = new JFrame("Guess That Champion!");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(800, 600);
+		frame.setBackground(Color.BLUE);
 
 		GridBagLayout gridbag = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 0;
 		
-		frame.setLayout(gridbag);
 		
-		Font titleFont = new Font("Helvetica", Font.BOLD, 25);
-		Font text = new Font("Arial", Font.PLAIN, 13);
 		
-		c.anchor = GridBagConstraints.NORTH;
+		
+		JPanel titlePanel = new JPanel();
+		titlePanel.setSize(new Dimension(200, 300));
+		titlePanel.setBackground(Color.GREEN);
+		frame.getContentPane().add(titlePanel);
+		
+		
+		Font titleFont = new Font("Calibri", Font.BOLD, 25);    //font selection
+		Font subTitleFont = new Font ("Calibri", Font.ITALIC, 18);
+		Font textFont = new Font("Arial", Font.PLAIN, 13);
+		
+		
+		
+		c.gridx ++;
+		c.insets = new Insets(10, 20, 20, 50);
+		c.anchor = GridBagConstraints.PAGE_START;
 		c.gridheight = 2; 
-		c.weightx = GridBagConstraints.REMAINDER;
+		//c.fill = GridBagConstraints.HORIZONTAL;
+		c.weightx = 0.0;
+		c.gridwidth = GridBagConstraints.REMAINDER;
 		c.weighty = 1.0;														//setting for title
 		c.ipady = 20;
 		JLabel title = new JLabel("Guess That Champion!");
 		title.setFont(titleFont);
-		gridbag.setConstraints(title, c);
-		frame.getContentPane().add(title);
-		c.fill = GridBagConstraints.BOTH;
+		titlePanel.add(title, c);
 		
 		
+		c.anchor = GridBagConstraints.PAGE_END;
+		c.gridy ++;
+		
+		c.gridwidth = GridBagConstraints.REMAINDER;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.weightx = 1;
+		c.weighty = 1.0;
+		c.ipady = 10;
+		JLabel subTitle = new JLabel("A quizzing tool made by Parsa Beheshti and Ian Bantoto");
+		subTitle.setFont(subTitleFont);
+		titlePanel.add(subTitle, c);
+		
+		
+//		c.anchor = GridBagConstraints.LINE_START;
 //		c.gridheight = 1;
 //		c.weightx = 1.0;
-//		
+//		c.gridy ++;
 //		c.ipady = 10;
-//		
+//		//c.anchor = GridBagConstraints.BELOW_BASELINE_LEADING;
 //		JLabel choices = new JLabel("Please select the quiz categories and number of trials: ");
 //		choices.setFont(text);
-//		gridbag.setConstraints(choices, c);
-//		frame.getContentPane().add(choices);
+//		
+//		frame.getContentPane().add(choices, c);
 //		c.fill = GridBagConstraints.BOTH;
-		
+//		
 		
 		frame.setVisible(true);
 	}
