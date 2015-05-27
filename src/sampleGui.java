@@ -16,20 +16,24 @@ public class sampleGui extends JFrame{
 		JFrame frame = new JFrame("Guess That Champion!");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(800, 600);
-		frame.setBackground(Color.BLUE);
-
+		
+		
+		Container contentPane = frame.getContentPane();
+		
 		GridBagLayout gridbag = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridx = 0;
 		c.gridy = 0;
-		
-		
+		contentPane.setLayout(gridbag);
+		contentPane.setSize(new Dimension(800, 600));
+		contentPane.setBackground(Color.RED);
 		
 		
 		JPanel titlePanel = new JPanel();
-		titlePanel.setSize(new Dimension(200, 300));
+		titlePanel.setPreferredSize(new Dimension(300, 600));
+		c.anchor = GridBagConstraints.PAGE_START;
 		titlePanel.setBackground(Color.GREEN);
-		frame.getContentPane().add(titlePanel);
+		contentPane.add(titlePanel, c);
 		
 		
 		Font titleFont = new Font("Calibri", Font.BOLD, 25);    //font selection
@@ -52,17 +56,17 @@ public class sampleGui extends JFrame{
 		titlePanel.add(title, c);
 		
 		
-		c.anchor = GridBagConstraints.PAGE_END;
-		c.gridy ++;
-		
-		c.gridwidth = GridBagConstraints.REMAINDER;
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weightx = 1;
-		c.weighty = 1.0;
-		c.ipady = 10;
-		JLabel subTitle = new JLabel("A quizzing tool made by Parsa Beheshti and Ian Bantoto");
-		subTitle.setFont(subTitleFont);
-		titlePanel.add(subTitle, c);
+//		c.anchor = GridBagConstraints.PAGE_END;
+//		c.gridy ++;
+//		
+//		c.gridwidth = GridBagConstraints.REMAINDER;
+//		c.fill = GridBagConstraints.HORIZONTAL;
+//		c.weightx = 1;
+//		c.weighty = 1.0;
+//		c.ipady = 10;
+//		JLabel subTitle = new JLabel("A quizzing tool made by Parsa Beheshti and Ian Bantoto");
+//		subTitle.setFont(subTitleFont);
+//		titlePanel.add(subTitle, c);
 		
 		
 //		c.anchor = GridBagConstraints.LINE_START;
