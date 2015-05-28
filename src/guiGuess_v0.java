@@ -26,7 +26,7 @@ import com.robrua.orianna.type.core.common.Region;
 import com.robrua.orianna.type.core.staticdata.Champion;
 import com.robrua.orianna.type.core.staticdata.ChampionSpell;
 
-public class guiGuess_v0 {
+public class guiGuess_v0  {
 	
 	static ArrayList<Integer> used = new ArrayList<Integer>();
 	static List<Champion> champions;
