@@ -5,6 +5,10 @@
  * registered trademarks of Riot Games, Inc. League of Legends © Riot Games, Inc.
  */
 
+/*
+ * Swapped over to using Object arrays to store JButtons and JLabels
+ */
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -25,7 +29,7 @@ import com.robrua.orianna.type.core.common.Region;
 import com.robrua.orianna.type.core.staticdata.Champion;
 import com.robrua.orianna.type.core.staticdata.ChampionSpell;
 
-public class guiGuess_v0  {
+public class guiGuess_v01 {
 	
 	static ArrayList<Integer> used = new ArrayList<Integer>();
 	static List<Champion> champions;
@@ -41,16 +45,10 @@ public class guiGuess_v0  {
 	
 	static String pass;
 	static int answer;
+	static int i;
 
-	static BufferedImage r0Pic = null;
-	static BufferedImage r1Pic = null;
-	static BufferedImage r2Pic = null;
-	static BufferedImage r3Pic = null;
-	
-	static JButton r0Label = null;
-	static JButton r1Label = null;
-	static JButton r2Label = null;
-	static JButton r3Label = null;
+	static BufferedImage champPics[] = new BufferedImage[4];
+	static JButton champButts[] = new JButton[4];
 	
 	static int score = 0;
 	static int total = 0;
@@ -76,27 +74,12 @@ public class guiGuess_v0  {
     	else if(rn==2) pass = "E";
     	
 		// Draw stuff
-		
-    	if(answer==0){
-    		r0Pic = ImageIO.read(new File("icons/" + champ.getName() + ".png"));
-    		r1Pic = ImageIO.read(new File(newChampFill()));
-    		r2Pic = ImageIO.read(new File(newChampFill()));
-    		r3Pic = ImageIO.read(new File(newChampFill()));
-    	}else if(answer==1){
-    		r0Pic = ImageIO.read(new File(newChampFill()));
-    		r1Pic = ImageIO.read(new File("icons/" + champ.getName() + ".png"));
-    		r2Pic = ImageIO.read(new File(newChampFill()));
-    		r3Pic = ImageIO.read(new File(newChampFill()));
-    	}else if(answer==2){
-    		r0Pic = ImageIO.read(new File(newChampFill()));
-    		r1Pic = ImageIO.read(new File(newChampFill()));
-    		r2Pic = ImageIO.read(new File("icons/" + champ.getName() + ".png"));
-    		r3Pic = ImageIO.read(new File(newChampFill()));
-    	}else{
-    		r0Pic = ImageIO.read(new File(newChampFill()));
-    		r1Pic = ImageIO.read(new File(newChampFill()));
-    		r2Pic = ImageIO.read(new File(newChampFill()));
-    		r3Pic = ImageIO.read(new File("icons/" + champ.getName() + ".png"));
+    	
+    	for(int i = 0; i < champPics.length; i++){
+    		if(i==answer)
+    			champPics[i] = ImageIO.read(new File("icons/" + champ.getName() + ".png"));
+    		else
+    			champPics[i] = ImageIO.read(new File(newChampFill()));
     	}
     	
 		Font titleFont = new Font("Helvetica", Font.BOLD, 25);
@@ -110,10 +93,9 @@ public class guiGuess_v0  {
 		champPassive.setFont(text);
 		champAbility.setFont(text);
 		
-		r0Label = new JButton(new ImageIcon(r0Pic));
-		r1Label = new JButton(new ImageIcon(r1Pic));
-		r2Label = new JButton(new ImageIcon(r2Pic));
-		r3Label = new JButton(new ImageIcon(r3Pic));
+		for(int i = 0; i < champButts.length; i++){
+			champButts[i] = new JButton(new ImageIcon(champPics[i]));
+		}
 		
 		c.anchor = GridBagConstraints.NORTH;
 		c.ipady = 10;
@@ -129,45 +111,34 @@ public class guiGuess_v0  {
 		
 		c.anchor = GridBagConstraints.CENTER;
 		c.gridwidth = GridBagConstraints.RELATIVE;
-		gridbag.setConstraints(r0Label, c);
-		frame.getContentPane().add(r0Label);
+		gridbag.setConstraints(champButts[0], c);
+		frame.getContentPane().add(champButts[0]);
 		
 		c.gridwidth = GridBagConstraints.REMAINDER;
-		gridbag.setConstraints(r1Label, c);
-		frame.getContentPane().add(r1Label);
+		gridbag.setConstraints(champButts[1], c);
+		frame.getContentPane().add(champButts[1]);
 		
 		c.gridwidth = GridBagConstraints.RELATIVE;
-		gridbag.setConstraints(r2Label, c);
-		frame.getContentPane().add(r2Label);
+		gridbag.setConstraints(champButts[2], c);
+		frame.getContentPane().add(champButts[2]);
 		
 		c.gridwidth = GridBagConstraints.REMAINDER;
-		gridbag.setConstraints(r3Label, c);
-		frame.getContentPane().add(r3Label);
+		gridbag.setConstraints(champButts[3], c);
+		frame.getContentPane().add(champButts[3]);
 		
-		r0Label.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent me) {
-				handleScore(0);
-				reset();
-			}
-		});
-		r1Label.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent me) {
-				handleScore(1);
-				reset();
-			}
-		});
-		r2Label.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent me) {
-				handleScore(2);
-				reset();
-			}
-		});
-		r3Label.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent me) {
-				handleScore(3);
-				reset();
-			}
-		});
+		for(i = 0; i < champButts.length-1; i++){
+			champButts[i].addMouseListener(new MouseAdapter() {
+				public void mouseClicked(MouseEvent me) {
+					handleScore(i);
+					try {
+						reset();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			});
+		}
 		
 		frame.setVisible(true);
 	}
@@ -192,7 +163,7 @@ public class guiGuess_v0  {
         champions = RiotAPI.getChampions();
 	}
 	
-	public static void reset(){
+	public static void reset() throws IOException{
 		champ = newChamp();
 		spells = champ.getSpells();
 		pass = "";
@@ -207,81 +178,48 @@ public class guiGuess_v0  {
 		champAbility.setText(pass + ": " + spells.get(rn));
     	
 		// Draw stuff
-    	try{
-    		if(answer==0){
-    			r0Pic = ImageIO.read(new File("icons/" + champ.getName() + ".png"));
-    			r1Pic = ImageIO.read(new File(newChampFill()));
-    			r2Pic = ImageIO.read(new File(newChampFill()));
-    			r3Pic = ImageIO.read(new File(newChampFill()));
-    		}else if(answer==1){
-    			r0Pic = ImageIO.read(new File(newChampFill()));
-    			r1Pic = ImageIO.read(new File("icons/" + champ.getName() + ".png"));
-    			r2Pic = ImageIO.read(new File(newChampFill()));
-    			r3Pic = ImageIO.read(new File(newChampFill()));
-    		}else if(answer==2){
-    			r0Pic = ImageIO.read(new File(newChampFill()));
-    			r1Pic = ImageIO.read(new File(newChampFill()));
-    			r2Pic = ImageIO.read(new File("icons/" + champ.getName() + ".png"));
-    			r3Pic = ImageIO.read(new File(newChampFill()));
-    		}else{
-    			r0Pic = ImageIO.read(new File(newChampFill()));
-    			r1Pic = ImageIO.read(new File(newChampFill()));
-    			r2Pic = ImageIO.read(new File(newChampFill()));
-    			r3Pic = ImageIO.read(new File("icons/" + champ.getName() + ".png"));
-    		}
-    	}catch(IOException e){}
+		for(int i = 0; i < champPics.length-1; i++){
+			if(i==answer)
+				champPics[i] = ImageIO.read(new File("icons/" + champ.getName() + ".png"));
+			else
+				champPics[i] = ImageIO.read(new File(newChampFill()));
+		}
     	
-    	frame.getContentPane().remove(r0Label);
-    	frame.getContentPane().remove(r1Label);
-    	frame.getContentPane().remove(r2Label);
-    	frame.getContentPane().remove(r3Label);
-    	
-    	r0Label = new JButton(new ImageIcon(r0Pic));
-		r1Label = new JButton(new ImageIcon(r1Pic));
-		r2Label = new JButton(new ImageIcon(r2Pic));
-		r3Label = new JButton(new ImageIcon(r3Pic));
+    	for(int i = 0; i < champButts.length-1; i++){
+    		frame.getContentPane().remove(champButts[i]);
+			champButts[i] = new JButton(new ImageIcon(champPics[i]));
+    	}
     	
 		c.anchor = GridBagConstraints.CENTER;
 		c.gridwidth = GridBagConstraints.RELATIVE;
-		gridbag.setConstraints(r0Label, c);
-		frame.getContentPane().add(r0Label);
+		gridbag.setConstraints(champButts[0], c);
+		frame.getContentPane().add(champButts[0]);
 		
 		c.gridwidth = GridBagConstraints.REMAINDER;
-		gridbag.setConstraints(r1Label, c);
-		frame.getContentPane().add(r1Label);
+		gridbag.setConstraints(champButts[1], c);
+		frame.getContentPane().add(champButts[1]);
 		
 		c.gridwidth = GridBagConstraints.RELATIVE;
-		gridbag.setConstraints(r2Label, c);
-		frame.getContentPane().add(r2Label);
+		gridbag.setConstraints(champButts[2], c);
+		frame.getContentPane().add(champButts[2]);
 		
 		c.gridwidth = GridBagConstraints.REMAINDER;
-		gridbag.setConstraints(r3Label, c);
-		frame.getContentPane().add(r3Label);
+		gridbag.setConstraints(champButts[3], c);
+		frame.getContentPane().add(champButts[3]);
 		
-		r0Label.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent me) {
-				handleScore(0);
-				reset();
-			}
-		});
-		r1Label.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent me) {
-				handleScore(1);
-				reset();
-			}
-		});
-		r2Label.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent me) {
-				handleScore(2);
-				reset();
-			}
-		});
-		r3Label.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent me) {
-				handleScore(3);
-				reset();
-			}
-		});
+		for(i = 0; i < champButts.length-1; i++){
+			champButts[i].addMouseListener(new MouseAdapter() {
+				public void mouseClicked(MouseEvent me) {
+					handleScore(i);
+					try {
+						reset();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			});
+		}
 		
 	}
 	
