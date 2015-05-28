@@ -27,12 +27,12 @@ public class sampleGUI2 {
 		titlePanel.setBackground(Color.RED);
 		
 		JPanel content = new JPanel( new GridBagLayout());
-		content.setPreferredSize(new Dimension(800, 550));
+		content.setPreferredSize(new Dimension(800, 575));
 		content.setBackground(Color.GREEN);
 		
 		contentPane.add(titlePanel, c);
 		c.gridy ++;
-		c.anchor = GridBagConstraints.FIRST_LINE_START;
+		//c.anchor = GridBagConstraints.FIRST_LINE_START;
 		contentPane.add(content, c);
 		
 		
@@ -42,25 +42,39 @@ public class sampleGUI2 {
 		title.setFont(titleFont);
 		titlePanel.add(title, c);
 		
-		c.anchor = GridBagConstraints.REMAINDER;
 		
+		
+		c.anchor = GridBagConstraints.NORTHWEST;
 		c.gridy = 0;
-		c.anchor = GridBagConstraints.FIRST_LINE_START;
+		c.gridx = 0;
+		c.insets = new Insets(10, 10, 10, 10); 
 		JLabel chooseCategories = new JLabel("Please choose the categories you would like to be quizzed on: ");
 		chooseCategories.setFont(text);
-		c.weightx = GridBagConstraints.REMAINDER;
-		c.weighty = 1.0;
+		c.weightx = 1.0;
+		c.weighty = 0.5;
+		c.fill = GridBagConstraints.HORIZONTAL;
 		content.add(chooseCategories, c);
 
 		
-//		c.gridy ++;
-//		c.anchor = GridBagConstraints.LINE_START;
-//		c.weightx = GridBagConstraints.REMAINDER;
-//		c.weighty = 1.0;
-//		
-//		JCheckBox passiveQuiz = new JCheckBox ("Champion Passive");
-//		content.add(passiveQuiz, c);
+		c.gridy ++;
+		c.gridx = 0;
+		c.weightx = 5.0;
+		c.weighty = 3.0;
 		
+		JCheckBox passiveQuiz = new JCheckBox ("Champion Passive");
+		content.add(passiveQuiz, c);
+		
+		c.weightx = 10.0;
+		c.weighty = 3.0;
+		c.gridx ++;
+		JCheckBox regQuiz = new JCheckBox ("Champion Default Ability");
+		content.add(regQuiz, c);
+		
+		c.weightx = 10.0;
+		c.weighty = 3.0;
+		c.gridx ++;
+		JCheckBox ultimateQuiz = new JCheckBox ("Champion Ultimate Ability");
+		content.add(ultimateQuiz, c);
 		
 		frame.setLocationRelativeTo(null);
 		frame.pack();
