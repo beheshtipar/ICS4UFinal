@@ -77,7 +77,7 @@ public class guiGuess_v01 {
     	
     	for(int i = 0; i < champPics.length; i++){
     		if(i==answer)
-    			champPics[i] = ImageIO.read(new File("icons/" + champ.getName() + ".png"));
+    			champPics[i] = ImageIO.read(new File("champs/" + champ.getName() + ".png"));
     		else
     			champPics[i] = ImageIO.read(new File(newChampFill()));
     	}
@@ -129,8 +129,8 @@ public class guiGuess_v01 {
 		for(i = 0; i < champButts.length-1; i++){
 			champButts[i].addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent me) {
-					handleScore(i);
 					try {
+						handleScore(i);
 						reset();
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -178,14 +178,14 @@ public class guiGuess_v01 {
 		champAbility.setText(pass + ": " + spells.get(rn));
     	
 		// Draw stuff
-		for(int i = 0; i < champPics.length-1; i++){
+		for(int i = 0; i < champPics.length; i++){
 			if(i==answer)
-				champPics[i] = ImageIO.read(new File("icons/" + champ.getName() + ".png"));
+				champPics[i] = ImageIO.read(new File("champs/" + champ.getName() + ".png"));
 			else
 				champPics[i] = ImageIO.read(new File(newChampFill()));
 		}
     	
-    	for(int i = 0; i < champButts.length-1; i++){
+    	for(int i = 0; i < champButts.length; i++){
     		frame.getContentPane().remove(champButts[i]);
 			champButts[i] = new JButton(new ImageIcon(champPics[i]));
     	}
@@ -207,11 +207,11 @@ public class guiGuess_v01 {
 		gridbag.setConstraints(champButts[3], c);
 		frame.getContentPane().add(champButts[3]);
 		
-		for(i = 0; i < champButts.length-1; i++){
+		for(i = 0; i < champButts.length; i++){
 			champButts[i].addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent me) {
-					handleScore(i);
 					try {
+						handleScore(i);
 						reset();
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -239,7 +239,7 @@ public class guiGuess_v01 {
 		while(used.contains(index))
 			index = (int)(champions.size() * Math.random());
         Champion c = champions.get(index);
-        return "icons/" + c.getName() + ".png";
+        return "champs/" + c.getName() + ".png";
 	}
 	
 	

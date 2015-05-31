@@ -78,25 +78,25 @@ public class guiGuess_v0  {
 		// Draw stuff
 		
     	if(answer==0){
-    		r0Pic = ImageIO.read(new File("icons/" + champ.getName() + ".png"));
+    		r0Pic = ImageIO.read(new File("champs/" + champ.getName() + ".png"));
     		r1Pic = ImageIO.read(new File(newChampFill()));
     		r2Pic = ImageIO.read(new File(newChampFill()));
     		r3Pic = ImageIO.read(new File(newChampFill()));
     	}else if(answer==1){
     		r0Pic = ImageIO.read(new File(newChampFill()));
-    		r1Pic = ImageIO.read(new File("icons/" + champ.getName() + ".png"));
+    		r1Pic = ImageIO.read(new File("champs/" + champ.getName() + ".png"));
     		r2Pic = ImageIO.read(new File(newChampFill()));
     		r3Pic = ImageIO.read(new File(newChampFill()));
     	}else if(answer==2){
     		r0Pic = ImageIO.read(new File(newChampFill()));
     		r1Pic = ImageIO.read(new File(newChampFill()));
-    		r2Pic = ImageIO.read(new File("icons/" + champ.getName() + ".png"));
+    		r2Pic = ImageIO.read(new File("champs/" + champ.getName() + ".png"));
     		r3Pic = ImageIO.read(new File(newChampFill()));
     	}else{
     		r0Pic = ImageIO.read(new File(newChampFill()));
     		r1Pic = ImageIO.read(new File(newChampFill()));
     		r2Pic = ImageIO.read(new File(newChampFill()));
-    		r3Pic = ImageIO.read(new File("icons/" + champ.getName() + ".png"));
+    		r3Pic = ImageIO.read(new File("champs/" + champ.getName() + ".png"));
     	}
     	
 		Font titleFont = new Font("Helvetica", Font.BOLD, 25);
@@ -209,25 +209,25 @@ public class guiGuess_v0  {
 		// Draw stuff
     	try{
     		if(answer==0){
-    			r0Pic = ImageIO.read(new File("icons/" + champ.getName() + ".png"));
+    			r0Pic = ImageIO.read(new File("champs/" + champ.getName() + ".png"));
     			r1Pic = ImageIO.read(new File(newChampFill()));
     			r2Pic = ImageIO.read(new File(newChampFill()));
     			r3Pic = ImageIO.read(new File(newChampFill()));
     		}else if(answer==1){
     			r0Pic = ImageIO.read(new File(newChampFill()));
-    			r1Pic = ImageIO.read(new File("icons/" + champ.getName() + ".png"));
+    			r1Pic = ImageIO.read(new File("champs/" + champ.getName() + ".png"));
     			r2Pic = ImageIO.read(new File(newChampFill()));
     			r3Pic = ImageIO.read(new File(newChampFill()));
     		}else if(answer==2){
     			r0Pic = ImageIO.read(new File(newChampFill()));
     			r1Pic = ImageIO.read(new File(newChampFill()));
-    			r2Pic = ImageIO.read(new File("icons/" + champ.getName() + ".png"));
+    			r2Pic = ImageIO.read(new File("champs/" + champ.getName() + ".png"));
     			r3Pic = ImageIO.read(new File(newChampFill()));
     		}else{
     			r0Pic = ImageIO.read(new File(newChampFill()));
     			r1Pic = ImageIO.read(new File(newChampFill()));
     			r2Pic = ImageIO.read(new File(newChampFill()));
-    			r3Pic = ImageIO.read(new File("icons/" + champ.getName() + ".png"));
+    			r3Pic = ImageIO.read(new File("champs/" + champ.getName() + ".png"));
     		}
     	}catch(IOException e){}
     	
@@ -301,7 +301,7 @@ public class guiGuess_v0  {
 		while(used.contains(index))
 			index = (int)(champions.size() * Math.random());
         Champion c = champions.get(index);
-        return "icons/" + c.getName() + ".png";
+        return "champs//" + c.getName() + ".png";
 	}
 	
 	
