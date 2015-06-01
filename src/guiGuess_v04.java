@@ -219,8 +219,8 @@ public class guiGuess_v04 {
 		
 		champButts[0].addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent me) {
-				handleScore(0);
 				try {
+					handleScore(0);
 					reset();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -230,8 +230,8 @@ public class guiGuess_v04 {
 		});
 		champButts[1].addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent me) {
-				handleScore(1);
 				try {
+					handleScore(1);
 					reset();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -241,8 +241,8 @@ public class guiGuess_v04 {
 		});
 		champButts[2].addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent me) {
-				handleScore(2);
 				try {
+					handleScore(2);
 					reset();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -252,8 +252,8 @@ public class guiGuess_v04 {
 		});
 		champButts[3].addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent me) {
-				handleScore(3);
 				try {
+					handleScore(3);
 					reset();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -332,8 +332,8 @@ public class guiGuess_v04 {
 		
 		champButts[0].addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent me) {
-				handleScore(0);
 				try {
+					handleScore(0);
 					reset();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -343,8 +343,8 @@ public class guiGuess_v04 {
 		});
 		champButts[1].addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent me) {
-				handleScore(1);
 				try {
+					handleScore(1);
 					reset();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -354,8 +354,8 @@ public class guiGuess_v04 {
 		});
 		champButts[2].addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent me) {
-				handleScore(2);
 				try {
+					handleScore(2);
 					reset();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -365,8 +365,8 @@ public class guiGuess_v04 {
 		});
 		champButts[3].addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent me) {
-				handleScore(3);
 				try {
+					handleScore(3);
 					reset();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -415,26 +415,4 @@ public class guiGuess_v04 {
         return "champs/" + c.getName() + ".png";
 	}
 	
-//	public static void main(String[] args) throws IOException{
-//		// TODO Auto-generated method stub
-//		
-//        
-//		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-//            public void run() {
-//            	try {
-//					getChamp();
-//				} catch (IOException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//                try {
-//					init();
-//				} catch (IOException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//            }
-//        });
-//	}
-
 }
