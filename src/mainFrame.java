@@ -18,6 +18,8 @@ import javax.swing.JCheckBox;
 
 import java.awt.Panel;
 import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -130,6 +132,20 @@ public class mainFrame extends JFrame {
 		gbc_btnStart.gridy = 2;
 		content.add(btnStart, gbc_btnStart);
 		
+		btnStart.addMouseListener(new MouseAdapter(){
+			public void mouseClicked(MouseEvent me) {
+				boolean passive = choicePassive.isSelected();
+				boolean regular = choiceReg.isSelected();
+				boolean ultimate = choiceUltimate.isSelected();
+				try {
+					guiGuess_v05 m = new guiGuess_v05(passive, regular, ultimate);
+					setVisible(false);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 		
 		BufferedImage BG = ImageIO.read(new File("src/morgana_vs_ahri_3.jpg"));
 		JLabel lblBG = new JLabel(new ImageIcon(BG));

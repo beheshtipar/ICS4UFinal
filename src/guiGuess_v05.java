@@ -28,7 +28,7 @@
  *   
  * KNOWN BUGS
  * - Sometimes requires double-clicking or triple-clicking icons
- * - Image-getter sometimes searches for images that don't exist
+ * - Screen sometimes doesn't refresh
  */
 
 import java.awt.*;
@@ -303,7 +303,8 @@ public class guiGuess_v05 {
 			public void mouseClicked(MouseEvent me) {
 				try {
 					handleScore(0);
-					reset();
+					if(total < champions.size() - 3)
+						reset();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -314,7 +315,8 @@ public class guiGuess_v05 {
 			public void mouseClicked(MouseEvent me) {
 				try {
 					handleScore(1);
-					reset();
+					if(total < champions.size() - 3)
+						reset();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -325,7 +327,8 @@ public class guiGuess_v05 {
 			public void mouseClicked(MouseEvent me) {
 				try {
 					handleScore(2);
-					reset();
+					if(total < champions.size() - 3)
+						reset();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -336,7 +339,8 @@ public class guiGuess_v05 {
 			public void mouseClicked(MouseEvent me) {
 				try {
 					handleScore(3);
-					reset();
+					if(total < champions.size() - 3)
+						reset();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
