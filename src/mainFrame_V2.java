@@ -14,6 +14,8 @@ import java.awt.image.BufferedImage;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JPanel;
 import javax.swing.JCheckBox;
@@ -30,10 +32,12 @@ public class mainFrame_V2 {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
+		EventQueue.invokeLater(new Runnable() {			//secure way to run swing applications
 			public void run() {
 				try {
 					mainFrame_V2 window = new mainFrame_V2();
+					String disc = "\"Guess That Champion!\" isn't endorsed by Riot Games and doesn't reflect \nthe views or opinions of Riot Games or anyone officially involved in producing or managing League of Legends. \nLeague of Legends and Riot Games are trademarks or registered trademarks of Riot Games, Inc. League of Legends © Riot Games, Inc.";
+					JOptionPane.showMessageDialog(window.frame, disc, "Disclaimer", JOptionPane.WARNING_MESSAGE );
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -70,7 +74,7 @@ public class mainFrame_V2 {
 		BufferedImage BG = ImageIO.read(new File("src/morgana_vs_ahri_3.jpg"));
 		mainPane.setLayout(null);
 		JLabel lblBG = new JLabel(new ImageIcon(BG));
-		lblBG.setBounds(-10, 0, 691, 260);
+		lblBG.setBounds(-50, -10, 737, 375);
 		
 		
 		mainPane.add(lblBG);
@@ -89,7 +93,7 @@ public class mainFrame_V2 {
 		checkPassive.setFont(new Font("Yu Gothic", Font.BOLD, 14));
 		checkPassive.setOpaque(false);
 		mainPane.setLayer(checkPassive, 1);
-		checkPassive.setBounds(6, 88, 150, 37);
+		checkPassive.setBounds(6, 88, 164, 37);
 		mainPane.add(checkPassive);
 		
 		JCheckBox checkDefault = new JCheckBox("Champion Default Ability");
@@ -98,7 +102,7 @@ public class mainFrame_V2 {
 		checkDefault.setFont(new Font("Yu Gothic", Font.BOLD, 14));
 		checkDefault.setToolTipText("Such as champion Q, W, E");
 		mainPane.setLayer(checkDefault, 1);
-		checkDefault.setBounds(241, 88, 198, 37);
+		checkDefault.setBounds(227, 88, 225, 37);
 		mainPane.add(checkDefault);
 		
 		JCheckBox checkUlti = new JCheckBox("Champion Ultimate");
@@ -106,7 +110,7 @@ public class mainFrame_V2 {
 		checkUlti.setForeground(Color.GREEN);
 		checkUlti.setFont(new Font("Yu Gothic", Font.BOLD, 14));
 		mainPane.setLayer(checkUlti, 1);
-		checkUlti.setBounds(518, 88, 157, 37);
+		checkUlti.setBounds(503, 88, 172, 37);
 		mainPane.add(checkUlti);
 		
 		JButton btnStart = new JButton("Start!");
