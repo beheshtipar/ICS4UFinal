@@ -84,24 +84,24 @@ public class mainFrame_V2 {
 		mainPane.setLayer(lblTitle, 1);
 		mainPane.add(lblTitle);
 		
-		JCheckBox chckbxNewCheckBox = new JCheckBox("Champion Passive");
-		chckbxNewCheckBox.setFont(new Font("Yu Gothic", Font.PLAIN, 14));
-		mainPane.setLayer(chckbxNewCheckBox, 1);
-		chckbxNewCheckBox.setBounds(6, 88, 150, 37);
-		mainPane.add(chckbxNewCheckBox);
+		JCheckBox checkPassive = new JCheckBox("Champion Passive");
+		checkPassive.setFont(new Font("Yu Gothic", Font.PLAIN, 14));
+		mainPane.setLayer(checkPassive, 1);
+		checkPassive.setBounds(6, 88, 150, 37);
+		mainPane.add(checkPassive);
 		
-		JCheckBox chckbxNewCheckBox_1 = new JCheckBox("Champion Default Ability");
-		chckbxNewCheckBox_1.setFont(new Font("Yu Gothic", Font.PLAIN, 14));
-		chckbxNewCheckBox_1.setToolTipText("Such as champion Q, W, E");
-		mainPane.setLayer(chckbxNewCheckBox_1, 1);
-		chckbxNewCheckBox_1.setBounds(241, 88, 198, 37);
-		mainPane.add(chckbxNewCheckBox_1);
+		JCheckBox checkDefault = new JCheckBox("Champion Default Ability");
+		checkDefault.setFont(new Font("Yu Gothic", Font.PLAIN, 14));
+		checkDefault.setToolTipText("Such as champion Q, W, E");
+		mainPane.setLayer(checkDefault, 1);
+		checkDefault.setBounds(241, 88, 198, 37);
+		mainPane.add(checkDefault);
 		
-		JCheckBox chckbxNewCheckBox_2 = new JCheckBox("Champion Ultimate");
-		chckbxNewCheckBox_2.setFont(new Font("Yu Gothic", Font.PLAIN, 14));
-		mainPane.setLayer(chckbxNewCheckBox_2, 1);
-		chckbxNewCheckBox_2.setBounds(518, 88, 157, 37);
-		mainPane.add(chckbxNewCheckBox_2);
+		JCheckBox checkUlti = new JCheckBox("Champion Ultimate");
+		checkUlti.setFont(new Font("Yu Gothic", Font.PLAIN, 14));
+		mainPane.setLayer(checkUlti, 1);
+		checkUlti.setBounds(518, 88, 157, 37);
+		mainPane.add(checkUlti);
 		
 		JButton btnStart = new JButton("Start!");
 		btnStart.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 15));
