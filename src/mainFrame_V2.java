@@ -67,8 +67,8 @@ public class mainFrame_V2 {
 		
 		
 		
-		JLayeredPane mainPane = new JLayeredPane();
-		frame.getContentPane().add(mainPane, "name_78800221383633");
+		JLayeredPane mainPane = new JLayeredPane();														//The content of the launcher are layered to enable										
+		frame.getContentPane().add(mainPane, "name_78800221383633");									//use of background image.
 		
 		
 		BufferedImage BG = ImageIO.read(new File("src/morgana_vs_ahri_3.jpg"));
