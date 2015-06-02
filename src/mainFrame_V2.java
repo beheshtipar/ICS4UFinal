@@ -10,6 +10,8 @@ import javax.swing.JLayeredPane;
 import javax.swing.JLabel;
 
 import java.awt.BorderLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.awt.*;
 import java.io.File;
@@ -118,5 +120,17 @@ public class mainFrame_V2 {
 		mainPane.setLayer(btnStart, 1);
 		btnStart.setBounds(260, 171, 150, 62);
 		mainPane.add(btnStart);
+		
+		btnStart.addMouseListener(new MouseAdapter(){
+			public void mouseClicked(MouseEvent me) {
+				try {
+					new guiGuess_v06(checkPassive.isSelected(), checkDefault.isSelected(), checkUlti.isSelected());
+					frame.dispose();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 }
