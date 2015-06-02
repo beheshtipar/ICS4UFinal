@@ -14,6 +14,8 @@ import java.awt.image.BufferedImage;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JPanel;
 import javax.swing.JCheckBox;
@@ -34,6 +36,8 @@ public class mainFrame_V2 {
 			public void run() {
 				try {
 					mainFrame_V2 window = new mainFrame_V2();
+					String disc = "\"Guess That Champion!\" isn't endorsed by Riot Games and doesn't reflect \nthe views or opinions of Riot Games or anyone officially involved in producing or managing League of Legends. \nLeague of Legends and Riot Games are trademarks or registered trademarks of Riot Games, Inc. League of Legends © Riot Games, Inc.";
+					JOptionPane.showMessageDialog(window.frame, disc, "Disclaimer", JOptionPane.INFORMATION_MESSAGE) ;
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -70,7 +74,7 @@ public class mainFrame_V2 {
 		BufferedImage BG = ImageIO.read(new File("src/morgana_vs_ahri_3.jpg"));
 		mainPane.setLayout(null);
 		JLabel lblBG = new JLabel(new ImageIcon(BG));
-		lblBG.setBounds(-10, 0, 691, 260);
+		lblBG.setBounds(-50, -10, 737, 375);
 		
 		
 		mainPane.add(lblBG);
