@@ -77,7 +77,7 @@ public class mainFrame_V2 {
 		
 		JLabel lblTitle = new JLabel("Guess That Champion!");
 		lblTitle.setForeground(UIManager.getColor("Menu.background"));
-		lblTitle.setBounds(0, 0, 681, 27);
+		lblTitle.setBounds(10, 23, 644, 27);
 		
 		lblTitle.setFont(new Font("WeblySleek UI Semibold", Font.BOLD, 20));
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
@@ -85,20 +85,26 @@ public class mainFrame_V2 {
 		mainPane.add(lblTitle);
 		
 		JCheckBox checkPassive = new JCheckBox("Champion Passive");
-		checkPassive.setFont(new Font("Yu Gothic", Font.PLAIN, 14));
+		checkPassive.setForeground(Color.GREEN);
+		checkPassive.setFont(new Font("Yu Gothic", Font.BOLD, 14));
+		checkPassive.setOpaque(false);
 		mainPane.setLayer(checkPassive, 1);
 		checkPassive.setBounds(6, 88, 150, 37);
 		mainPane.add(checkPassive);
 		
 		JCheckBox checkDefault = new JCheckBox("Champion Default Ability");
-		checkDefault.setFont(new Font("Yu Gothic", Font.PLAIN, 14));
+		checkDefault.setOpaque(false);
+		checkDefault.setForeground(Color.GREEN);
+		checkDefault.setFont(new Font("Yu Gothic", Font.BOLD, 14));
 		checkDefault.setToolTipText("Such as champion Q, W, E");
 		mainPane.setLayer(checkDefault, 1);
 		checkDefault.setBounds(241, 88, 198, 37);
 		mainPane.add(checkDefault);
 		
 		JCheckBox checkUlti = new JCheckBox("Champion Ultimate");
-		checkUlti.setFont(new Font("Yu Gothic", Font.PLAIN, 14));
+		checkUlti.setOpaque(false);
+		checkUlti.setForeground(Color.GREEN);
+		checkUlti.setFont(new Font("Yu Gothic", Font.BOLD, 14));
 		mainPane.setLayer(checkUlti, 1);
 		checkUlti.setBounds(518, 88, 157, 37);
 		mainPane.add(checkUlti);
