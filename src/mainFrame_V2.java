@@ -89,7 +89,7 @@ public class mainFrame_V2 {
 		checkPassive.setFont(new Font("Yu Gothic", Font.BOLD, 14));
 		checkPassive.setOpaque(false);
 		mainPane.setLayer(checkPassive, 1);
-		checkPassive.setBounds(6, 88, 150, 37);
+		checkPassive.setBounds(6, 88, 164, 37);
 		mainPane.add(checkPassive);
 		
 		JCheckBox checkDefault = new JCheckBox("Champion Default Ability");
@@ -98,7 +98,7 @@ public class mainFrame_V2 {
 		checkDefault.setFont(new Font("Yu Gothic", Font.BOLD, 14));
 		checkDefault.setToolTipText("Such as champion Q, W, E");
 		mainPane.setLayer(checkDefault, 1);
-		checkDefault.setBounds(241, 88, 198, 37);
+		checkDefault.setBounds(227, 88, 225, 37);
 		mainPane.add(checkDefault);
 		
 		JCheckBox checkUlti = new JCheckBox("Champion Ultimate");
@@ -106,7 +106,7 @@ public class mainFrame_V2 {
 		checkUlti.setForeground(Color.GREEN);
 		checkUlti.setFont(new Font("Yu Gothic", Font.BOLD, 14));
 		mainPane.setLayer(checkUlti, 1);
-		checkUlti.setBounds(518, 88, 157, 37);
+		checkUlti.setBounds(503, 88, 172, 37);
 		mainPane.add(checkUlti);
 		
 		JButton btnStart = new JButton("Start!");
