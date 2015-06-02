@@ -16,9 +16,9 @@
  * 
  * NEW FEATURES
  * - Plays sound to let user know if their guess was correct
+ * - Menu screen (WIP)
  *   
  * PLANNED FEATURES
- * - Menu
  * - Select which *champion* categories you'll be tested on (only Marksmen, only Fighters, etc.)
  * - Skip button
  * - Remove 2 options button (limited uses)
@@ -132,12 +132,15 @@ public class guiGuess_v05 {
 		
 		// Select champion, choose hint to be displayed
 		champ = newChamp();
-//		spells = champ.getSpells();
 		getAbi();
     	
     	// Load and display image to be displayed as hint
-    	champAbi = ImageIO.read(new File("abilities/" + champ.getName() + "_" + pass + ".png"));
-    	champAbility = new JLabel(new ImageIcon(champAbi));
+		try{
+			champAbi = ImageIO.read(new File("abilities/" + champ.getName() + "_" + pass + ".png"));
+		}catch(IOException e){
+			System.out.println("abilities/" + champ.getName() + "_" + pass + ".png");
+		}
+		champAbility = new JLabel(new ImageIcon(champAbi));
     	
 		// Load and display correct champion image, and 3 other champions
     	answer = (int) (4 * Math.random());
@@ -254,10 +257,15 @@ public class guiGuess_v05 {
     	// Load and display correct champion image, and 3 other champion images
     	
 		for(int i = 0; i < champPics.length; i++){
-			if(i==answer)
+			if(i==answer){
+				try{
 				champPics[i] = ImageIO.read(new File("champs/" + champ.getName() + ".png"));
-			else
+				}catch(IOException e) {System.out.println("champs/" + champ.getName() + ".png");}
+			}else{
+				try{
 				champPics[i] = ImageIO.read(new File(newChampFill()));
+				}catch(IOException e){ System.out.println();}
+			}
 		}
     	
     	for(int i = 0; i < champButts.length; i++){
@@ -305,6 +313,7 @@ public class guiGuess_v05 {
 					handleScore(0);
 					if(total < champions.size() - 3)
 						reset();
+					else frame.dispose();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -317,6 +326,7 @@ public class guiGuess_v05 {
 					handleScore(1);
 					if(total < champions.size() - 3)
 						reset();
+					else frame.dispose();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -329,6 +339,7 @@ public class guiGuess_v05 {
 					handleScore(2);
 					if(total < champions.size() - 3)
 						reset();
+					else frame.dispose();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -341,6 +352,7 @@ public class guiGuess_v05 {
 					handleScore(3);
 					if(total < champions.size() - 3)
 						reset();
+					else frame.dispose();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -399,14 +411,12 @@ public class guiGuess_v05 {
 		
 		if(passive){
 			if(regular){
-				if(ultimate){ // All true
-					int rn = (int) (5 * Math.random());
-			    	if(rn==0) returnThis = "Q";
-			    	else if(rn==1) returnThis = "W";
-			    	else if(rn==2) returnThis = "E";
-			    	else if(rn==3) returnThis = "R";
-			    	else returnThis = "Passive";
-				}
+				int rn = (int) (5 * Math.random());
+				if(rn==0) returnThis = "Q";
+				else if(rn==1) returnThis = "W";
+				else if(rn==2) returnThis = "E";
+				else if(rn==3) returnThis = "R";
+				else returnThis = "Passive";
 			}else{
 				if(ultimate){ // No regular abilities
 					int rn = (int) (3 * Math.random());

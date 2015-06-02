@@ -139,7 +139,7 @@ public class mainFrame extends JFrame {
 				boolean ultimate = choiceUltimate.isSelected();
 				try {
 					guiGuess_v05 m = new guiGuess_v05(passive, regular, ultimate);
-					setVisible(false);
+					dispose();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
