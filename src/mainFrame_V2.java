@@ -1,6 +1,9 @@
 import java.awt.EventQueue;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.JFrame;
 
 import java.awt.CardLayout;
@@ -124,6 +127,15 @@ public class mainFrame_V2 {
 		btnStart.addMouseListener(new MouseAdapter(){
 			public void mouseClicked(MouseEvent me) {
 				try {
+					try {
+				        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("lib/sounds/open.wav").getAbsoluteFile());
+				        Clip clip = AudioSystem.getClip();
+				        clip.open(audioInputStream);
+				        clip.start();
+				    } catch(Exception ex) {
+				        System.out.println("Sound error on playing file: " + "lib/sounds/open.wav");
+				        ex.printStackTrace();
+				    }
 					new guiGuess_v06(checkPassive.isSelected(), checkDefault.isSelected(), checkUlti.isSelected());
 					frame.dispose();
 				} catch (IOException e) {
