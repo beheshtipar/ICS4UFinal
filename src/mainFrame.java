@@ -131,7 +131,7 @@ public class mainFrame extends JFrame {
 		content.add(btnStart, gbc_btnStart);
 		
 		
-		BufferedImage BG = ImageIO.read(new File("morgana_vs_ahri_3.png"));
+		BufferedImage BG = ImageIO.read(new File("src/morgana_vs_ahri_3.jpg"));
 		JLabel lblBG = new JLabel(new ImageIcon(BG));
 		GridBagConstraints gbc_lblBG = new GridBagConstraints();
 		gbc_lblBG.gridx = 1;
