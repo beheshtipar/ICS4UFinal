@@ -136,7 +136,7 @@ public class mainFrame_V2 {
 				        System.out.println("Sound error on playing file: " + "lib/sounds/open.wav");
 				        ex.printStackTrace();
 				    }
-					new guiGuess_v05(checkPassive.isSelected(), checkDefault.isSelected(), checkUlti.isSelected());
+					new guiGuess_v06(checkPassive.isSelected(), checkDefault.isSelected(), checkUlti.isSelected());
 					frame.dispose();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
