@@ -31,6 +31,8 @@ import javax.swing.JButton;
 
 public class mainFrame_V2 {
 
+	JCheckBox checkPassive, checkDefault, checkUlti;
+	
 	private JFrame frame;
 
 	/**
@@ -93,7 +95,7 @@ public class mainFrame_V2 {
 		mainPane.setLayer(lblTitle, 1);
 		mainPane.add(lblTitle);
 		
-		JCheckBox checkPassive = new JCheckBox("Champion Passive");
+		checkPassive = new JCheckBox("Champion Passive");
 		checkPassive.setForeground(Color.GREEN);
 		checkPassive.setFont(new Font("Yu Gothic", Font.BOLD, 14));
 		checkPassive.setOpaque(false);
@@ -101,7 +103,7 @@ public class mainFrame_V2 {
 		checkPassive.setBounds(6, 88, 164, 37);
 		mainPane.add(checkPassive);
 		
-		JCheckBox checkDefault = new JCheckBox("Champion Default Ability");
+		checkDefault = new JCheckBox("Champion Default Ability");
 		checkDefault.setOpaque(false);
 		checkDefault.setForeground(Color.GREEN);
 		checkDefault.setFont(new Font("Yu Gothic", Font.BOLD, 14));
@@ -110,7 +112,7 @@ public class mainFrame_V2 {
 		checkDefault.setBounds(227, 88, 225, 37);
 		mainPane.add(checkDefault);
 		
-		JCheckBox checkUlti = new JCheckBox("Champion Ultimate");
+		checkUlti = new JCheckBox("Champion Ultimate");
 		checkUlti.setOpaque(false);
 		checkUlti.setForeground(Color.GREEN);
 		checkUlti.setFont(new Font("Yu Gothic", Font.BOLD, 14));
