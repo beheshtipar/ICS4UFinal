@@ -367,7 +367,7 @@ public class guiGuess_v06 {
 	 * Request list of champions from Riot API, save in array of Champions
 	 */
 	public static void getChamp() throws IOException{
-		BufferedReader in = new BufferedReader(new FileReader("lib\\api-key.txt")); 
+		BufferedReader in = new BufferedReader(new FileReader("api-key.txt")); 
     	String text = in.readLine(); 
     	in.close();
     	
