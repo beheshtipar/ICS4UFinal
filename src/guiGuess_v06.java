@@ -48,6 +48,8 @@ import com.robrua.orianna.type.core.staticdata.Champion;
 
 public class guiGuess_v06 {
 	
+	
+	
 	// Instance variables
 	
 	// JFrame stuff
@@ -86,17 +88,22 @@ public class guiGuess_v06 {
 	 * 			Ultimate ability	[X]
 	 */
 	public guiGuess_v06() throws IOException{
+		/**
+		 * @wbp.parser.constructor
+		 */
 		passive = true;
 		regular = true;
 		ultimate = true;
 		getChamp();
 		init();
+		
 	}
 	
 	/*
 	 * Use parameters to select which types of icons to display
 	 */
 	public guiGuess_v06(boolean doPassives, boolean doRegulars, boolean doUltimates) throws IOException{
+		
 		passive = doPassives;
 		regular = doRegulars;
 		ultimate = doUltimates;
@@ -367,6 +374,7 @@ public class guiGuess_v06 {
 	 * Request list of champions from Riot API, save in array of Champions
 	 */
 	public static void getChamp() throws IOException{
+		
 		BufferedReader in = new BufferedReader(new FileReader("api-key.txt")); 
     	String text = in.readLine(); 
     	in.close();
@@ -382,6 +390,9 @@ public class guiGuess_v06 {
 	 * Find new champ, mark as used
 	 */
 	public static Champion newChamp(){
+		/**
+		 * @wbp.parser.constructor
+		 */
 		int index = (int)(champions.size() * Math.random());
 		while(used.contains(index))
 			index = (int)(champions.size() * Math.random());
@@ -405,6 +416,7 @@ public class guiGuess_v06 {
 	 * Generate string for an ability type to display
 	 */
 	public static void getAbi(){
+		
 		String returnThis = "";
 		
 		if(passive){
@@ -453,6 +465,7 @@ public class guiGuess_v06 {
 	 * Play a sound
 	 */
 	public static void playSound(String soundFile){
+		
 		try {
 	        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundFile).getAbsoluteFile());
 	        Clip clip = AudioSystem.getClip();
@@ -468,6 +481,7 @@ public class guiGuess_v06 {
 	 * Increment score when needed, and total guesses always
 	 */
 	public static void handleScore(int spot) throws IOException{
+		
 		if(answer==spot){
 			playSound("lib/sounds/correct.wav");
 			score++;
