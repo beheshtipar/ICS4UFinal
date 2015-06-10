@@ -11,6 +11,7 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import java.awt.Font;
 import javax.swing.JButton;
+import java.awt.SystemColor;
 
 
 public class guiGuess_v07 {
@@ -57,8 +58,9 @@ public class guiGuess_v07 {
 		layeredPane.setBounds(0, 0, 800, 578);
 		frame.getContentPane().add(layeredPane);
 		
-		BufferedImage BG = ImageIO.read(new File("src/akaliBG.jpg"));
-		JLabel lblBG = new JLabel(/*new ImageIcon(BG)*/);
+		BufferedImage BG = ImageIO.read(new File("lib//akaliBG.jpg"));
+		JLabel lblBG = new JLabel(new ImageIcon(BG));
+		layeredPane.setLayer(lblBG, 0);
 		lblBG.setBounds(0, 0, 800, 578);
 		layeredPane.add(lblBG);
 		
@@ -66,9 +68,12 @@ public class guiGuess_v07 {
 		layeredPane.setLayer(mainPane, 1);
 		mainPane.setBounds(0, 0, 800, 578);
 		layeredPane.add(mainPane);
+		mainPane.setBackground(null);
+		mainPane.setOpaque(false);
 		mainPane.setLayout(null);
 		
 		JLabel lblTitle = new JLabel("Guess That Champion!");
+		lblTitle.setForeground(SystemColor.desktop);
 		lblTitle.setFont(new Font("Baskerville", Font.BOLD, 16));
 		lblTitle.setBounds(311, 25, 177, 20);
 		mainPane.add(lblTitle);
