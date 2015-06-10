@@ -69,6 +69,7 @@ public class mainFrame_V2 {
 		frame = new JFrame("Guess That Champion!");
 		frame.setResizable(false);
 		frame.setBounds(100, 100, 687, 289);
+		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new CardLayout(0, 0));
 		
