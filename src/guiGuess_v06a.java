@@ -14,6 +14,10 @@
  * - Select which categories to be tested on in menu screen
  * - Displays score in GUI
  * - Plays sound to let user know if their guess was correct
+ * 
+ * NEW FEATURES
+ * - Shows countdown timer
+ * - Scoring becoomes disabled when timer reaches zero
  *   
  * PLANNED FEATURES
  * - Select which *champion* categories you'll be tested on (only Marksmen, only Fighters, etc.)
@@ -21,10 +25,10 @@
  * - Remove 2 options button (limited uses)
  *   
  * CODE ADJUSTMENTS
- * - Organized image files
+ * - 
  *   
  * KNOWN BUGS
- * - Screen sometimes doesn't refresh
+ * - 
  * 
  */
 
