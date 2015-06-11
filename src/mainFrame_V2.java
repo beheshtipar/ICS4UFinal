@@ -34,7 +34,11 @@ public class mainFrame_V2 {
 
 	JCheckBox checkPassive, checkDefault, checkUlti;
 	
+	JLabel lblLoadingGif;
+	
 	private JFrame frame;
+	
+	JButton btnStart;
 
 	/**
 	 * Launch the application.
@@ -86,7 +90,7 @@ public class mainFrame_V2 {
 		
 		URL gifUrl = getClass().getResource("loading.gif");
 		ImageIcon loadingGif = new ImageIcon(gifUrl.getPath());
-		JLabel lblLoadingGif = new JLabel(loadingGif);
+		lblLoadingGif = new JLabel(loadingGif);
 		lblLoadingGif.setBounds(272, 140, 128, 128);
 		mainPane.add(lblLoadingGif);
 		lblLoadingGif.setVisible(false);
@@ -133,7 +137,7 @@ public class mainFrame_V2 {
 		checkUlti.setBounds(503, 88, 172, 37);
 		mainPane.add(checkUlti);
 		
-		JButton btnStart = new JButton("Start!");
+		btnStart = new JButton("Start!");
 		btnStart.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 15));
 		mainPane.setLayer(btnStart, 1);
 		btnStart.setBounds(260, 171, 150, 62);
@@ -151,6 +155,9 @@ public class mainFrame_V2 {
 				        System.out.println("Sound error on playing file: " + "lib/sounds/open.wav");
 				        ex.printStackTrace();
 				    }
+					btnStart.setVisible(false);
+					lblLoadingGif.setVisible(true);
+					
 					new guiGuess_v06(checkPassive.isSelected(), checkDefault.isSelected(), checkUlti.isSelected());
 					frame.dispose();
 				} catch (IOException e) {
