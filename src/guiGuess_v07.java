@@ -51,6 +51,7 @@ public class guiGuess_v07 {
 	 * @throws IOException 
 	 */
 	private void initialize() throws IOException {
+		//initialize frame content
 		frame = new JFrame("Guess That Champion!");
 		frame.setResizable(false);
 		frame.setBounds(100, 100, 800, 600);
@@ -58,16 +59,19 @@ public class guiGuess_v07 {
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		//initialize layered frame system; crucial to getting background image to work
 		JLayeredPane layeredPane = new JLayeredPane();
 		layeredPane.setBounds(0, 0, 800, 578);
 		frame.getContentPane().add(layeredPane);
 		
+		//Background image setup/assignment
 		BufferedImage BG = ImageIO.read(new File("lib//akaliBG.jpg"));
-		JLabel lblBG = new JLabel(/*new ImageIcon(BG)*/);
+		JLabel lblBG = new JLabel(new ImageIcon(BG));
 		layeredPane.setLayer(lblBG, 0);
 		lblBG.setBounds(0, 0, 800, 578);
 		layeredPane.add(lblBG);
 		
+		//added pane for buttons/content
 		JPanel mainPane = new JPanel();
 		mainPane.setForeground(new Color(255, 255, 255));
 		layeredPane.setLayer(mainPane, 2);
@@ -77,7 +81,9 @@ public class guiGuess_v07 {
 		mainPane.setOpaque(false);
 		mainPane.setLayout(null);
 		
-		JLabel lblQuizPic = new JLabel("");
+		// initialization of buttons, score label and timers. comment below intended for testing of position for lblQuizPic
+		//BufferedImage PD = ImageIO.read(new File("lib//images//strikes.png"));
+		JLabel lblQuizPic = new JLabel();
 		lblQuizPic.setBounds(368, 102, 64, 64);
 		mainPane.add(lblQuizPic);
 		
@@ -97,30 +103,33 @@ public class guiGuess_v07 {
 		btnChamp4.setBounds(408, 320, 120, 120);
 		mainPane.add(btnChamp4);
 		
-		JLabel lblScore = new JLabel("Score: 200\n");
+		JLabel lblScore = new JLabel("");
 		lblScore.setFont(new Font("Bangla MN", Font.BOLD, 13));
 		lblScore.setForeground(new Color(255, 255, 255));
 		lblScore.setBounds(351, 470, 113, 25);
 		mainPane.add(lblScore);
 		
-		JLabel lblTimer = new JLabel("59");
+		JLabel lblTimer = new JLabel("");
 		lblTimer.setFont(new Font("Lucida Grande", Font.PLAIN, 21));
 		lblTimer.setForeground(new Color(255, 255, 255));
 		lblTimer.setBounds(384, 512, 32, 37);
 		mainPane.add(lblTimer);
 		
-		JLabel lblLife1 = new JLabel("");
-		lblLife1.setBounds(68, 200, 64, 64);
+		//initialize life labels
+		BufferedImage life = ImageIO.read(new File("lib//images//lives.png"));
+		JLabel lblLife1 = new JLabel(new ImageIcon(life));
+		lblLife1.setBounds(650, 200, 64, 64);
 		mainPane.add(lblLife1);
 		
-		JLabel lblLife2 = new JLabel("\n");
-		lblLife2.setBounds(68, 274, 64, 64);
+		JLabel lblLife2 = new JLabel(new ImageIcon(life));
+		lblLife2.setBounds(650, 274, 64, 64);
 		mainPane.add(lblLife2);
 		
-		JLabel lblLife3 = new JLabel("");
-		lblLife3.setBounds(68, 348, 64, 64);
+		JLabel lblLife3 = new JLabel(new ImageIcon(life));
+		lblLife3.setBounds(650, 348, 64, 64);
 		mainPane.add(lblLife3);
 		
+		//background for timer/score tracker
 		JPanel timerBG = new JPanel();
 		timerBG.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		timerBG.setBackground(new Color(0, 0, 0));
@@ -129,7 +138,6 @@ public class guiGuess_v07 {
 		layeredPane.add(timerBG);
 		
 		
-//		BufferedImage BG = ImageIO.read(new File("src/akaliBG.jpg"));
 	
 	}
 }

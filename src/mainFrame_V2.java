@@ -19,6 +19,7 @@ import java.awt.image.BufferedImage;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
@@ -81,6 +82,14 @@ public class mainFrame_V2 {
 		
 		BufferedImage BG = ImageIO.read(new File("src/morgana_vs_ahri_3.jpg"));
 		mainPane.setLayout(null);
+		
+		
+		URL gifUrl = getClass().getResource("loading.gif");
+		ImageIcon loadingGif = new ImageIcon(gifUrl.getPath());
+		JLabel lblLoadingGif = new JLabel(loadingGif);
+		lblLoadingGif.setBounds(272, 140, 128, 128);
+		mainPane.add(lblLoadingGif);
+		lblLoadingGif.setVisible(false);
 		JLabel lblBG = new JLabel(new ImageIcon(BG));
 		lblBG.setBounds(-50, -10, 737, 375);
 		
@@ -103,6 +112,9 @@ public class mainFrame_V2 {
 		mainPane.setLayer(checkPassive, 1);
 		checkPassive.setBounds(6, 88, 164, 37);
 		mainPane.add(checkPassive);
+		
+		
+		
 		
 		checkDefault = new JCheckBox("Champion Default Ability");
 		checkDefault.setOpaque(false);
