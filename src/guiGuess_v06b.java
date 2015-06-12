@@ -53,7 +53,7 @@ import com.robrua.orianna.api.core.RiotAPI;
 import com.robrua.orianna.type.core.common.Region;
 import com.robrua.orianna.type.core.staticdata.Champion;
 
-public class guiGuess_v06a {
+public class guiGuess_v06b {
 	
 	// Instance variables
 	
@@ -84,8 +84,10 @@ public class guiGuess_v06a {
 	
 	// Keep track of score
 	static JLabel scoreLabel;
+	static JLabel pointsLabel;
 	static int score = 0;
 	static int total = 0;
+	static int points = 0;
 	
 	// Keep track of time
 	static StopWatch watch = new StopWatch();
@@ -95,13 +97,14 @@ public class guiGuess_v06a {
 	static long roundStart;
 	static long roundEnd;
 	static long roundTime;
-	static long time = 60;
+	static final int cap = 60;
+	static long time = cap;
 	
 	/* Default: Passives			[X]
 	 * 			Regular abilities	[X]
 	 * 			Ultimate ability	[X]
 	 */
-	public guiGuess_v06a() throws IOException{
+	public guiGuess_v06b() throws IOException{
 		passive = true;
 		regular = true;
 		ultimate = true;
@@ -112,7 +115,7 @@ public class guiGuess_v06a {
 	/*
 	 * Use parameters to select which types of icons to display
 	 */
-	public guiGuess_v06a(boolean doPassives, boolean doRegulars, boolean doUltimates) throws IOException{
+	public guiGuess_v06b(boolean doPassives, boolean doRegulars, boolean doUltimates) throws IOException{
 		passive = doPassives;
 		regular = doRegulars;
 		ultimate = doUltimates;
@@ -138,10 +141,14 @@ public class guiGuess_v06a {
 		// Choose title of application
 		JLabel title = new JLabel("Guess That Champion!");
 		scoreLabel = new JLabel("Score: " + score + " / " + total);
+		pointsLabel = new JLabel("Points: " + points);
+		
+		// Fonts
 		Font titleFont = new Font("Helvetica", Font.BOLD, 25);
 		text = new Font("Arial", Font.PLAIN, 13);
 		title.setFont(titleFont);
 		scoreLabel.setFont(text);
+		pointsLabel.setFont(text);
 		
 		// Select champion, choose hint to be displayed
 		champ = newChamp();
@@ -169,7 +176,6 @@ public class guiGuess_v06a {
     	timeLabel.setText(Long.toString(time));
 		
 		// Add elements to screen
-		
 		c.anchor = GridBagConstraints.NORTH;
 		c.ipady = 10;
 		c.gridwidth = GridBagConstraints.REMAINDER;
@@ -199,6 +205,10 @@ public class guiGuess_v06a {
 		c.anchor = GridBagConstraints.EAST;
 		gridbag.setConstraints(scoreLabel, c);
 		frame.getContentPane().add(scoreLabel);
+		
+		c.anchor = GridBagConstraints.WEST;
+		gridbag.setConstraints(pointsLabel, c);
+		frame.getContentPane().add(pointsLabel);
 		
 		c.anchor = GridBagConstraints.EAST;
 		gridbag.setConstraints(timeLabel, c);
@@ -271,11 +281,12 @@ public class guiGuess_v06a {
 			}
 		});
 		
+		// Create game timer
 		int delay = 1000; //milliseconds
 		ActionListener taskPerformer = new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				gameStart = watch.getElapsedTimeSecs();
-				if(gameStart < 60)
+				if(gameStart < cap)
 					timeLabel.setText(Long.toString(60-gameStart));
 				else timeLabel.setText("0");
 				timeLabel.setVisible(true);
@@ -299,9 +310,7 @@ public class guiGuess_v06a {
 	public static void reset() throws IOException{
 		
 		// Select new champion, choose hint to be displayed
-		
 		champ = newChamp();
-//		spells = champ.getSpells();
 		answer = (int) (4 * Math.random());
 		getAbi();
     	
@@ -313,7 +322,6 @@ public class guiGuess_v06a {
     	champAbility = new JLabel(new ImageIcon(champAbi));
     	
     	// Load and display correct champion image, and 3 other champion images
-    	
 		for(int i = 0; i < champPics.length; i++){
 			if(i==answer){
 				try{
@@ -334,12 +342,15 @@ public class guiGuess_v06a {
     	
     	// Display score and time
     	frame.getContentPane().remove(timeLabel);
+    	frame.getContentPane().remove(pointsLabel);
     	frame.getContentPane().remove(scoreLabel);
     	scoreLabel = new JLabel("Score: " + score + " / " + total);
+    	pointsLabel = new JLabel("Points: " + points);
     	scoreLabel.setVisible(true);
     	timeLabel.setVisible(true);
-    	// Add elements to screen
+    	pointsLabel.setVisible(true);
     	
+    	// Add elements to screen
     	c.weightx = 0.0;
     	c.anchor = GridBagConstraints.CENTER;
     	c.gridwidth = GridBagConstraints.REMAINDER;
@@ -365,6 +376,10 @@ public class guiGuess_v06a {
 		c.anchor = GridBagConstraints.EAST;
 		gridbag.setConstraints(scoreLabel, c);
 		frame.getContentPane().add(scoreLabel);
+		
+		c.anchor = GridBagConstraints.WEST;
+		gridbag.setConstraints(pointsLabel, c);
+		frame.getContentPane().add(pointsLabel);
 		
 		c.anchor = GridBagConstraints.EAST;
 		gridbag.setConstraints(timeLabel, c);
@@ -438,7 +453,6 @@ public class guiGuess_v06a {
 		});
 		
 		// Refresh frame
-		
 		frame.setVisible(true);
 	}
 	
@@ -461,11 +475,20 @@ public class guiGuess_v06a {
 	 * Find new champ, mark as used
 	 */
 	public static Champion newChamp(){
+		
+		// Pull random champion from list
 		int index = (int)(champions.size() * Math.random());
+		
+		// Make sure champion hasn't already been used as an answer
 		while(used.contains(index))
 			index = (int)(champions.size() * Math.random());
+		
+		// Save that champion
         Champion c = champions.get(index);
+       
+        // Add champion to used array
         used.add(index);
+        
         return c;
 	}
 	
@@ -473,10 +496,16 @@ public class guiGuess_v06a {
 	 * Find new champ to fill in empty slot, don't mark as used yet
 	 */
 	public static String newChampFill(){
+		
+		// Pull random champion from list
 		int index = (int)(champions.size() * Math.random());
+		
+		// Make sure champion hasn't already been used as an answer
 		while(used.contains(index))
 			index = (int)(champions.size() * Math.random());
-        Champion c = champions.get(index);
+		
+		// Save that champion
+		Champion c = champions.get(index);
         
         //Return the appropriate file name
         return "lib/images/champs/" + c.getName() + ".png";
@@ -490,12 +519,20 @@ public class guiGuess_v06a {
 		
 		if(passive){
 			if(regular){
-				int rn = (int) (5 * Math.random());
-				if(rn==0) returnThis = "Q";
-				else if(rn==1) returnThis = "W";
-				else if(rn==2) returnThis = "E";
-				else if(rn==3) returnThis = "R";
-				else returnThis = "Passive";
+				if(ultimate){ // All enabled
+					int rn = (int) (5 * Math.random());
+					if(rn==0) returnThis = "Q";
+					else if(rn==1) returnThis = "W";
+					else if(rn==2) returnThis = "E";
+					else if(rn==3) returnThis = "R";
+					else returnThis = "Passive";
+				}else{ // No ultimates
+					int rn = (int) (4 * Math.random());
+					if(rn==0) returnThis = "Q";
+					else if(rn==1) returnThis = "W";
+					else if(rn==2) returnThis = "E";
+					else returnThis = "Passive";
+				}
 			}else{
 				if(ultimate){ // No regular abilities
 					int rn = (int) (3 * Math.random());
@@ -535,7 +572,9 @@ public class guiGuess_v06a {
 	 */
 	public static void playSound(String soundFile){
 		try {
+			// Create AudioStream from sound file
 	        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundFile).getAbsoluteFile());
+	        // Create clip from AudioStream and play clip
 	        Clip clip = AudioSystem.getClip();
 	        clip.open(audioInputStream);
 	        clip.start();
@@ -549,12 +588,29 @@ public class guiGuess_v06a {
 	 * Increment score when needed, and total guesses always
 	 */
 	public static void handleScore(int spot) throws IOException{
-		if(answer==spot){
-			playSound("lib/sounds/correct.wav");
-			score++;
-		}else playSound("lib/sounds/incorrect.wav");
+		
+		if((total < champions.size() - 3) && (gameStart < 60)){
+			
+			int inc = (int) (400 / Math.pow(2, roundTime));
+			int dec = (int) (300 / Math.pow(1.5, roundTime));
+			
+			// Play appropriate sound, change score
+			if(answer==spot){
+				playSound("lib/sounds/correct.wav");
+				score++;
+				points += inc;
+			}else{
+				playSound("lib/sounds/incorrect.wav");
+				points -= dec;
+			}
+
+			total++;
+//			System.out.println("P: " + points);
+		}
+		
+		// Refresh score / points
 		scoreLabel.setVisible(true);
-		total++;
+		pointsLabel.setVisible(true);
 	}
 	
 }
