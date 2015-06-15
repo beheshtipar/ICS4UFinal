@@ -158,7 +158,8 @@ public class mainFrame_V2 {
 					btnStart.setVisible(false);
 					lblLoadingGif.setVisible(true);
 					
-					new guiGuess_v06(checkPassive.isSelected(), checkDefault.isSelected(), checkUlti.isSelected());
+					new guiGuess_v1_0(checkPassive.isSelected(), checkDefault.isSelected(), checkUlti.isSelected());
+//					new guiGuess_v1_0();
 					frame.dispose();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
