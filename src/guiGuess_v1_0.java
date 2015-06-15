@@ -17,19 +17,22 @@
  * - Scoring becoomes disabled when timer reaches zero
  * 
  * NEW FEATURES
- * - Background
- * - 
+ * - Added background and black UI spots to game
+ * - Player has a limited number of incorrect answers (lives) before their scoring doesn't work
+ * - After playing on round, game loops to the beginning
+ * - Pressing the exit button closes the program (everywhere except during disclaimer)
  *   
  * PLANNED FEATURES
  * - Select which *champion* categories you'll be tested on (only Marksmen, only Fighters, etc.)
- * - Skip button
- * - Remove 2 options button (limited uses)
- *   
+ * - System to keep track of high scores
+ * 
  * CODE ADJUSTMENTS
- * - 
+ * - Injected Parsa's GUI code into init and reset methods
+ * - Updated method names
+ * - Moved loading time to initial start of mainFrame program
  *   
  * KNOWN BUGS
- * - 
+ * - Takes extremely long time to contact RiotAPI for full champion list (on slow connection)
  * 
  */
 
@@ -118,29 +121,29 @@ public class guiGuess_v1_0 {
 	 * 			Regular abilities	[X]
 	 * 			Ultimate ability	[X]
 	 */
-	public guiGuess_v1_0() throws IOException{
+	public guiGuess_v1_0(List<Champion> champs) throws IOException{
 		passive = true;
 		regular = true;
 		ultimate = true;
-		getChamp();
-		init();
+		champions = champs;
+		play();
 	}
 	
 	/*
 	 * Use parameters to select which types of icons to display
 	 */
-	public guiGuess_v1_0(boolean doPassives, boolean doRegulars, boolean doUltimates) throws IOException{
+	public guiGuess_v1_0(List<Champion> champs, boolean doPassives, boolean doRegulars, boolean doUltimates) throws IOException{
 		passive = doPassives;
 		regular = doRegulars;
 		ultimate = doUltimates;
-		getChamp();
-		init();
+		champions = champs;
+		play();
 	}
 	
 	/*
 	 * First set of icons
 	 */
-	protected static void init() throws IOException{
+	protected static void play() throws IOException{
 		
 		// Create JFrame
 		frame = new JFrame("Guess That Champion!");
@@ -178,7 +181,7 @@ public class guiGuess_v1_0 {
 		
 		// Select champion, choose hint to be displayed
 		champ = newChamp();
-		getAbi();
+		getAbilityType();
     	
     	// Load and display image to be displayed as hint
 		try{
@@ -261,7 +264,7 @@ public class guiGuess_v1_0 {
     					roundStart = roundEnd;
     					System.out.println("R: " + roundTime);
     					if((total < champions.size() - 3) && (gameStart < 60))
-    						reset();
+    						nextRound();
     				} catch (IOException x) {
     					// TODO Auto-generated catch block
     					x.printStackTrace();
@@ -274,7 +277,7 @@ public class guiGuess_v1_0 {
     					roundStart = roundEnd;
     					System.out.println("R: " + roundTime);
     					if((total < champions.size() - 3) && (gameStart < 60))
-    						reset();
+    						nextRound();
     				} catch (IOException x) {
     					// TODO Auto-generated catch block
     					x.printStackTrace();
@@ -287,7 +290,7 @@ public class guiGuess_v1_0 {
     					roundStart = roundEnd;
     					System.out.println("R: " + roundTime);
     					if((total < champions.size() - 3) && (gameStart < 60))
-    						reset();
+    						nextRound();
     				} catch (IOException x) {
     					// TODO Auto-generated catch block
     					x.printStackTrace();
@@ -300,7 +303,7 @@ public class guiGuess_v1_0 {
     					roundStart = roundEnd;
     					System.out.println("R: " + roundTime);
     					if((total < champions.size() - 3) && (gameStart < 60))
-    						reset();
+    						nextRound();
     				} catch (IOException x) {
     					// TODO Auto-generated catch block
     					x.printStackTrace();
@@ -319,7 +322,7 @@ public class guiGuess_v1_0 {
     					roundStart = roundEnd;
     					System.out.println("R: " + roundTime);
     					if((total < champions.size() - 3) && (gameStart < 60))
-    						reset();
+    						nextRound();
     				} catch (IOException x) {
     					// TODO Auto-generated catch block
     					x.printStackTrace();
@@ -332,7 +335,7 @@ public class guiGuess_v1_0 {
     					roundStart = roundEnd;
     					System.out.println("R: " + roundTime);
     					if((total < champions.size() - 3) && (gameStart < 60))
-    						reset();
+    						nextRound();
     				} catch (IOException x) {
     					// TODO Auto-generated catch block
     					x.printStackTrace();
@@ -345,7 +348,7 @@ public class guiGuess_v1_0 {
     					roundStart = roundEnd;
     					System.out.println("R: " + roundTime);
     					if((total < champions.size() - 3) && (gameStart < 60))
-    						reset();
+    						nextRound();
     				} catch (IOException x) {
     					// TODO Auto-generated catch block
     					x.printStackTrace();
@@ -358,7 +361,7 @@ public class guiGuess_v1_0 {
     					roundStart = roundEnd;
     					System.out.println("R: " + roundTime);
     					if((total < champions.size() - 3) && (gameStart < 60))
-    						reset();
+    						nextRound();
     				} catch (IOException x) {
     					// TODO Auto-generated catch block
     					x.printStackTrace();
@@ -377,7 +380,7 @@ public class guiGuess_v1_0 {
     					roundStart = roundEnd;
     					System.out.println("R: " + roundTime);
     					if((total < champions.size() - 3) && (gameStart < 60))
-    						reset();
+    						nextRound();
     				} catch (IOException x) {
     					// TODO Auto-generated catch block
     					x.printStackTrace();
@@ -390,7 +393,7 @@ public class guiGuess_v1_0 {
     					roundStart = roundEnd;
     					System.out.println("R: " + roundTime);
     					if((total < champions.size() - 3) && (gameStart < 60))
-    						reset();
+    						nextRound();
     				} catch (IOException x) {
     					// TODO Auto-generated catch block
     					x.printStackTrace();
@@ -403,7 +406,7 @@ public class guiGuess_v1_0 {
     					roundStart = roundEnd;
     					System.out.println("R: " + roundTime);
     					if((total < champions.size() - 3) && (gameStart < 60))
-    						reset();
+    						nextRound();
     				} catch (IOException x) {
     					// TODO Auto-generated catch block
     					x.printStackTrace();
@@ -416,7 +419,7 @@ public class guiGuess_v1_0 {
     					roundStart = roundEnd;
     					System.out.println("R: " + roundTime);
     					if((total < champions.size() - 3) && (gameStart < 60))
-    						reset();
+    						nextRound();
     				} catch (IOException x) {
     					// TODO Auto-generated catch block
     					x.printStackTrace();
@@ -435,7 +438,7 @@ public class guiGuess_v1_0 {
     					roundStart = roundEnd;
     					System.out.println("R: " + roundTime);
     					if((total < champions.size() - 3) && (gameStart < 60))
-    						reset();
+    						nextRound();
     				} catch (IOException x) {
     					// TODO Auto-generated catch block
     					x.printStackTrace();
@@ -448,7 +451,7 @@ public class guiGuess_v1_0 {
     					roundStart = roundEnd;
     					System.out.println("R: " + roundTime);
     					if((total < champions.size() - 3) && (gameStart < 60))
-    						reset();
+    						nextRound();
     				} catch (IOException x) {
     					// TODO Auto-generated catch block
     					x.printStackTrace();
@@ -461,7 +464,7 @@ public class guiGuess_v1_0 {
     					roundStart = roundEnd;
     					System.out.println("R: " + roundTime);
     					if((total < champions.size() - 3) && (gameStart < 60))
-    						reset();
+    						nextRound();
     				} catch (IOException x) {
     					// TODO Auto-generated catch block
     					x.printStackTrace();
@@ -474,7 +477,7 @@ public class guiGuess_v1_0 {
     					roundStart = roundEnd;
     					System.out.println("R: " + roundTime);
     					if((total < champions.size() - 3) && (gameStart < 60))
-    						reset();
+    						nextRound();
     				} catch (IOException x) {
     					// TODO Auto-generated catch block
     					x.printStackTrace();
@@ -494,7 +497,11 @@ public class guiGuess_v1_0 {
 					roundStart = roundEnd;
 					System.out.println("R: " + roundTime);
 					if((total < champions.size() - 3) && (gameStart < 60))
-						reset();
+						nextRound();
+					else{
+						frame.dispose();
+						new mainFrame_V2(0);
+					}
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -510,7 +517,11 @@ public class guiGuess_v1_0 {
 					roundStart = roundEnd;
 					System.out.println("R: " + roundTime);
 					if((total < champions.size() - 3) && (gameStart < 60))
-						reset();
+						nextRound();
+					else{
+						frame.dispose();
+						new mainFrame_V2(0);
+					}
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -526,7 +537,11 @@ public class guiGuess_v1_0 {
 					roundStart = roundEnd;
 					System.out.println("R: " + roundTime);
 					if((total < champions.size() - 3) && (gameStart < 60))
-						reset();
+						nextRound();
+					else{
+						frame.dispose();
+						new mainFrame_V2(0);
+					}
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -542,7 +557,11 @@ public class guiGuess_v1_0 {
 					roundStart = roundEnd;
 					System.out.println("R: " + roundTime);
 					if((total < champions.size() - 3) && (gameStart < 60))
-						reset();
+						nextRound();
+					else{
+						frame.dispose();
+						new mainFrame_V2(0);
+					}
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -576,7 +595,7 @@ public class guiGuess_v1_0 {
 	/*
 	 * Second set of icons (and onwards)
 	 */
-	public static void reset() throws IOException{
+	public static void nextRound() throws IOException{
 		
 		// Remove elements from pane
 		
@@ -598,7 +617,7 @@ public class guiGuess_v1_0 {
 		// Select new champion, choose hint to be displayed
 		champ = newChamp();
 		answer = (int) (4 * Math.random());
-		getAbi();
+		getAbilityType();
     	
     	// Load and display hint image
     	try{
@@ -665,11 +684,11 @@ public class guiGuess_v1_0 {
     	
     	// Manage lives count
     	if(lives>2)
-    	mainPane.add(lblLife1);
+    		mainPane.add(lblLife1);
     	if(lives>1)
-    	mainPane.add(lblLife2);
+    		mainPane.add(lblLife2);
     	if(lives>0)
-    	mainPane.add(lblLife3);
+    		mainPane.add(lblLife3);
 		
 		// Add listeners to buttons
 		
@@ -682,7 +701,10 @@ public class guiGuess_v1_0 {
 						roundTime = roundEnd-roundStart;
 						roundStart = roundEnd;
 						System.out.println("R: " + roundTime);
-						reset();
+						nextRound();
+					}else{
+						frame.setVisible(false);
+						newGame();
 					}
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -699,7 +721,10 @@ public class guiGuess_v1_0 {
 						roundTime = roundEnd-roundStart;
 						roundStart = roundEnd;
 						System.out.println("R: " + roundTime);
-						reset();
+						nextRound();
+					}else{
+						frame.setVisible(false);
+						newGame();
 					}
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -716,7 +741,10 @@ public class guiGuess_v1_0 {
 						roundTime = roundEnd-roundStart;
 						roundStart = roundEnd;
 						System.out.println("R: " + roundTime);
-						reset();
+						nextRound();
+					}else{
+						frame.setVisible(false);
+						newGame();
 					}
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -733,7 +761,10 @@ public class guiGuess_v1_0 {
 						roundTime = roundEnd-roundStart;
 						roundStart = roundEnd;
 						System.out.println("R: " + roundTime);
-						reset();
+						nextRound();
+					}else{
+						frame.setVisible(false);
+						newGame();
 					}
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -750,18 +781,23 @@ public class guiGuess_v1_0 {
 	}
 	
 	/*
-	 * Request list of champions from Riot API, save in array of Champions
+	 * Starts a fresh new game
 	 */
-	public static void getChamp() throws IOException{
-		BufferedReader in = new BufferedReader(new FileReader("api-key.txt")); 
-    	String text = in.readLine(); 
-    	in.close();
-    	
-        RiotAPI.setMirror(Region.NA);
-        RiotAPI.setRegion(Region.NA);
-        RiotAPI.setAPIKey(text);
-        
-        champions = RiotAPI.getChampions();
+	public static void newGame(){
+		frame.setVisible(false);
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					// Reset stats
+					lives = 3;
+					points = 0;
+					mainFrame_V2 window = new mainFrame_V2(0);
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 	
 	/*
@@ -809,7 +845,7 @@ public class guiGuess_v1_0 {
 	/*
 	 * Generate string for an ability type to display
 	 */
-	public static void getAbi(){
+	public static void getAbilityType(){
 		String returnThis = "";
 		
 		if(passive){
