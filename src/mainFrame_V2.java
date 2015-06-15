@@ -84,7 +84,7 @@ public class mainFrame_V2 {
 	
 	public mainFrame_V2(int score) throws IOException {
 		String disc = "You got a score of: " + score;
-		JOptionPane.showMessageDialog(this.frame, disc, "Disclaimer", JOptionPane.WARNING_MESSAGE );
+		JOptionPane.showMessageDialog(this.frame, disc, "", JOptionPane.WARNING_MESSAGE );
 		reset();
 	}
 
