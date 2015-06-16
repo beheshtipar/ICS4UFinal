@@ -10,74 +10,106 @@
  * ----------------------------------------------------------------------------
  * 
  * FEATURES
- * - Fully-functional gameplay w/champion passive and champion ability as hint
+ * - Fully functional gameplay w/images of champion ability/passive as hint
+ * - Select which categories to be tested on
+ * - Displays score in GUI
  * 
  * NEW FEATURES
- * - Instead of displaying the name of an ability and name of the passive,
- *   the hint now displays the icon of a champ's passive, or of one of their
- *   abilities
+ * - Plays sound to let user know if their guess was correct
+ * - Menu screen (WIP)
  *   
  * PLANNED FEATURES
- * - Menu
- * - Select which categories you'll be tested on (only marksmans, only E, etc.)
- * - Display score in GUI
+ * - Select which *champion* categories you'll be tested on (only Marksmen, only Fighters, etc.)
  * - Skip button
  * - Remove 2 options button (limited uses)
  *   
  * CODE ADJUSTMENTS
- * - Swapped over to using Object arrays to store JButtons and JLabels
- * - After some testing, it turns out that you can't just make a for loop to
- *   add mmouseListeners to a group of Objects
+ * - Created new method for playing sound files
  *   
  * KNOWN BUGS
- * - Screen requires minimizing, then reopening in order for next set of
- *   champions to appear
+ * - Sometimes requires double-clicking or triple-clicking icons
+ * - Screen sometimes doesn't refresh
  */
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 
 import com.robrua.orianna.api.core.RiotAPI;
 import com.robrua.orianna.type.core.common.Region;
 import com.robrua.orianna.type.core.staticdata.Champion;
-import com.robrua.orianna.type.core.staticdata.ChampionSpell;
 
-public class guiGuess_v02 {
+public class guiGuess_v0_5 {
 	
-	static ArrayList<Integer> used = new ArrayList<Integer>();
-	static List<Champion> champions;
+	// Instance variables
 	
+	// JFrame stuff
 	static JFrame frame;
 	static GridBagLayout gridbag;
 	static GridBagConstraints c;
 	
+	// Champion stuff
+	static ArrayList<Integer> used = new ArrayList<Integer>();
+	static List<Champion> champions;
 	static Champion champ;
 //	static List<ChampionSpell> spells;
-	static JLabel champAbility;
-	
-	static String pass;
-	static int answer;
-	static int i;
-
+	static Font text;
 	static BufferedImage champAbi;
 	static BufferedImage champPics[] = new BufferedImage[4];
 	static JButton champButts[] = new JButton[4];
 	
+	// Hint stuff
+	static JLabel champAbility;
+	static JLabel display;
+	static boolean passive;
+	static boolean regular;
+	static boolean ultimate;
+	
+	// Counters/temporary variables
+	static String pass;
+	static int answer;
+	static int i;
+	
+	// Keep track of score
 	static int score = 0;
 	static int total = 0;
 	
+	/* Default: Passives			[X]
+	 * 			Regular abilities	[X]
+	 * 			Ultimate ability	[X]
+	 */
+	public guiGuess_v0_5() throws IOException{
+		passive = true;
+		regular = true;
+		ultimate = true;
+		getChamp();
+		init();
+	}
+	
+	/*
+	 * 
+	 */
+	public guiGuess_v0_5(boolean doPassives, boolean doRegulars, boolean doUltimates) throws IOException{
+		passive = doPassives;
+		regular = doRegulars;
+		ultimate = doUltimates;
+		getChamp();
+		init();
+	}
+	
+	/*
+	 * 
+	 */
 	protected static void init() throws IOException{
 		
 		// Create JFrame
@@ -92,25 +124,23 @@ public class guiGuess_v02 {
 		
 		// Choose title of application
 		JLabel title = new JLabel("Guess That Champion!");
+		display = new JLabel("Score: " + score + " / " + total);
 		Font titleFont = new Font("Helvetica", Font.BOLD, 25);
-//		Font text = new Font("Arial", Font.PLAIN, 13);
+		text = new Font("Arial", Font.PLAIN, 13);
 		title.setFont(titleFont);
+		display.setFont(text);
 		
 		// Select champion, choose hint to be displayed
-		
 		champ = newChamp();
-//		spells = champ.getSpells();
-		int rn = (int) (5 * Math.random());
-		
-    	if(rn==0) pass = "Q";
-    	else if(rn==1) pass = "W";
-    	else if(rn==2) pass = "E";
-    	else if(rn==3) pass = "R";
-    	else pass = "Passive";
+		getAbi();
     	
     	// Load and display image to be displayed as hint
-    	champAbi = ImageIO.read(new File("abilities/" + champ.getName() + "_" + pass + ".png"));
-    	champAbility = new JLabel(new ImageIcon(champAbi));
+		try{
+			champAbi = ImageIO.read(new File("abilities/" + champ.getName() + "_" + pass + ".png"));
+		}catch(IOException e){
+			System.out.println("abilities/" + champ.getName() + "_" + pass + ".png");
+		}
+		champAbility = new JLabel(new ImageIcon(champAbi));
     	
 		// Load and display correct champion image, and 3 other champions
     	answer = (int) (4 * Math.random());
@@ -119,10 +149,8 @@ public class guiGuess_v02 {
     			champPics[i] = ImageIO.read(new File("champs/" + champ.getName() + ".png"));
     		else
     			champPics[i] = ImageIO.read(new File(newChampFill()));
+    		champButts[i] = new JButton(new ImageIcon(champPics[i]));
     	}
-		for(int i = 0; i < champButts.length; i++){
-			champButts[i] = new JButton(new ImageIcon(champPics[i]));
-		}
 		
 		// Add elements to screen
 		
@@ -152,12 +180,16 @@ public class guiGuess_v02 {
 		gridbag.setConstraints(champButts[3], c);
 		frame.getContentPane().add(champButts[3]);
 		
+		c.anchor = GridBagConstraints.EAST;
+		gridbag.setConstraints(display, c);
+		frame.getContentPane().add(display);
+		
 		// Add listeners to buttons
 		
 		champButts[0].addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent me) {
-				handleScore(0);
 				try {
+					handleScore(0);
 					reset();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -167,8 +199,8 @@ public class guiGuess_v02 {
 		});
 		champButts[1].addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent me) {
-				handleScore(1);
 				try {
+					handleScore(1);
 					reset();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -178,8 +210,8 @@ public class guiGuess_v02 {
 		});
 		champButts[2].addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent me) {
-				handleScore(2);
 				try {
+					handleScore(2);
 					reset();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -189,8 +221,8 @@ public class guiGuess_v02 {
 		});
 		champButts[3].addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent me) {
-				handleScore(3);
 				try {
+					handleScore(3);
 					reset();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -204,21 +236,17 @@ public class guiGuess_v02 {
 		frame.setVisible(true);
 	}
 	
+	/*
+	 * 
+	 */
 	public static void reset() throws IOException{
 		
 		// Select new champion, choose hint to be displayed
-			
+		
 		champ = newChamp();
 //		spells = champ.getSpells();
-		pass = "";
-		int rn = (int) (5 * Math.random());
-    	answer = (int) (4 * Math.random());
-		
-    	if(rn==0) pass = "Q";
-    	else if(rn==1) pass = "W";
-    	else if(rn==2) pass = "E";
-    	else if(rn==3) pass = "R";
-    	else pass = "Passive";
+		answer = (int) (4 * Math.random());
+		getAbi();
     	
     	// Load and display hint image
     	
@@ -227,17 +255,27 @@ public class guiGuess_v02 {
     	champAbility = new JLabel(new ImageIcon(champAbi));
     	
     	// Load and display correct champion image, and 3 other champion images
-		
-    	for(int i = 0; i < champPics.length; i++){
-			if(i==answer)
+    	
+		for(int i = 0; i < champPics.length; i++){
+			if(i==answer){
+				try{
 				champPics[i] = ImageIO.read(new File("champs/" + champ.getName() + ".png"));
-			else
+				}catch(IOException e) {System.out.println("champs/" + champ.getName() + ".png");}
+			}else{
+				try{
 				champPics[i] = ImageIO.read(new File(newChampFill()));
+				}catch(IOException e){ System.out.println();}
+			}
 		}
+    	
     	for(int i = 0; i < champButts.length; i++){
     		frame.getContentPane().remove(champButts[i]);
 			champButts[i] = new JButton(new ImageIcon(champPics[i]));
     	}
+    	
+    	frame.getContentPane().remove(display);
+    	display = new JLabel("Score: " + score + " / " + total);
+    	display.setFont(text);
     	
     	// Add elements to screen
     	
@@ -263,13 +301,19 @@ public class guiGuess_v02 {
 		gridbag.setConstraints(champButts[3], c);
 		frame.getContentPane().add(champButts[3]);
 		
+		c.anchor = GridBagConstraints.EAST;
+		gridbag.setConstraints(display, c);
+		frame.getContentPane().add(display);
+		
 		// Add listeners to buttons
 		
 		champButts[0].addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent me) {
-				handleScore(0);
 				try {
-					reset();
+					handleScore(0);
+					if(total < champions.size() - 3)
+						reset();
+					else frame.dispose();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -278,9 +322,11 @@ public class guiGuess_v02 {
 		});
 		champButts[1].addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent me) {
-				handleScore(1);
 				try {
-					reset();
+					handleScore(1);
+					if(total < champions.size() - 3)
+						reset();
+					else frame.dispose();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -289,9 +335,11 @@ public class guiGuess_v02 {
 		});
 		champButts[2].addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent me) {
-				handleScore(2);
 				try {
-					reset();
+					handleScore(2);
+					if(total < champions.size() - 3)
+						reset();
+					else frame.dispose();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -300,9 +348,11 @@ public class guiGuess_v02 {
 		});
 		champButts[3].addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent me) {
-				handleScore(3);
 				try {
-					reset();
+					handleScore(3);
+					if(total < champions.size() - 3)
+						reset();
+					else frame.dispose();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -311,15 +361,13 @@ public class guiGuess_v02 {
 		});
 		
 		// Refresh frame
+		
 		frame.setVisible(true);
 	}
 	
-	public static void handleScore(int spot){
-		if(answer==spot) score++;
-		total++;
-		System.out.println("Score: "+score + " / " + total);
-	}
-	
+	/*
+	 * 
+	 */
 	public static void getChamp() throws IOException{
 		BufferedReader in = new BufferedReader(new FileReader("lib\\api-key.txt")); 
     	String text = in.readLine(); 
@@ -332,6 +380,9 @@ public class guiGuess_v02 {
         champions = RiotAPI.getChampions();
 	}
 	
+	/*
+	 * 
+	 */
 	public static Champion newChamp(){
 		int index = (int)(champions.size() * Math.random());
 		while(used.contains(index))
@@ -341,6 +392,9 @@ public class guiGuess_v02 {
         return c;
 	}
 	
+	/*
+	 * 
+	 */
 	public static String newChampFill(){
 		int index = (int)(champions.size() * Math.random());
 		while(used.contains(index))
@@ -349,26 +403,79 @@ public class guiGuess_v02 {
         return "champs/" + c.getName() + ".png";
 	}
 	
-	public static void main(String[] args) throws IOException{
-		// TODO Auto-generated method stub
+	/*
+	 * 
+	 */
+	public static void getAbi(){
+		String returnThis = "";
 		
-        
-		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-            	try {
-					getChamp();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+		if(passive){
+			if(regular){
+				int rn = (int) (5 * Math.random());
+				if(rn==0) returnThis = "Q";
+				else if(rn==1) returnThis = "W";
+				else if(rn==2) returnThis = "E";
+				else if(rn==3) returnThis = "R";
+				else returnThis = "Passive";
+			}else{
+				if(ultimate){ // No regular abilities
+					int rn = (int) (3 * Math.random());
+			    	if(rn==0) returnThis = "Q";
+			    	else if(rn==1) returnThis = "R";
+			    	else returnThis = "Passive";
+				}else{ // Only passives
+					returnThis = "Passive";
 				}
-                try {
-					init();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+			}
+		}else{
+			if(regular){
+				if(ultimate){ // No passive
+					int rn = (int) (4 * Math.random());
+			    	if(rn==0) returnThis = "Q";
+			    	else if(rn==1) returnThis = "W";
+			    	else if(rn==2) returnThis = "E";
+			    	else returnThis = "R";
 				}
-            }
-        });
+				else{ // Only regular abilities
+					int rn = (int) (3 * Math.random());
+			    	if(rn==0) returnThis = "Q";
+			    	else if(rn==1) returnThis = "W";
+			    	else returnThis = "E";
+				}
+			}else{
+				if(ultimate){ // Only ultimates
+					returnThis = "Passive";
+				}
+			}
+		}
+		pass = returnThis;
 	}
-
+	
+	/*
+	 * 
+	 */
+	public static void playSound(String soundFile){
+		try {
+	        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundFile).getAbsoluteFile());
+	        Clip clip = AudioSystem.getClip();
+	        clip.open(audioInputStream);
+	        clip.start();
+	    } catch(Exception ex) {
+	        System.out.println("Sound error on playing file: " + soundFile);
+	        ex.printStackTrace();
+	    }
+	}
+	
+	/*
+	 * 
+	 */
+	public static void handleScore(int spot) throws IOException{
+		if(answer==spot){
+			playSound("sounds/correct.wav");
+			score++;
+		}else playSound("sounds/incorrect.wav");
+		total++;
+//		System.out.println("Score: "+score + " / " + total);
+	}
+	
 }

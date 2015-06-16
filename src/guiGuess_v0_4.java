@@ -11,46 +11,45 @@
  * 
  * FEATURES
  * - Fully functional gameplay w/images of champion ability/passive as hint
- * - Select which categories to be tested on in menu screen
- * - Displays score in GUI
- * - Plays sound to let user know if their guess was correct
+ *   
+ * NEW FEATURES
+ * - Select which categories to be tested on
+ * - Display score in GUI
  *   
  * PLANNED FEATURES
+ * - Menu
  * - Select which *champion* categories you'll be tested on (only Marksmen, only Fighters, etc.)
  * - Skip button
  * - Remove 2 options button (limited uses)
  *   
  * CODE ADJUSTMENTS
- * - Organized image files
+ * - Created new method for generating random ability/passive
  *   
  * KNOWN BUGS
- * - Screen sometimes doesn't refresh
- * 
+ * - Sometimes requires double-clicking or triple-clicking icons
  */
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import javax.swing.*;
 
 import com.robrua.orianna.api.core.RiotAPI;
 import com.robrua.orianna.type.core.common.Region;
 import com.robrua.orianna.type.core.staticdata.Champion;
+import com.robrua.orianna.type.core.staticdata.ChampionSpell;
 
-public class guiGuess_v06 {
-	
-	
-	
-	// Instance variables
+public class guiGuess_v0_4 {
 	
 	// JFrame stuff
 	static JFrame frame;
@@ -62,14 +61,13 @@ public class guiGuess_v06 {
 	static List<Champion> champions;
 	static Champion champ;
 //	static List<ChampionSpell> spells;
+	static JLabel champAbility;
+	static JLabel display;
 	static Font text;
 	static BufferedImage champAbi;
 	static BufferedImage champPics[] = new BufferedImage[4];
 	static JButton champButts[] = new JButton[4];
 	
-	// Hint stuff
-	static JLabel champAbility;
-	static JLabel display;
 	static boolean passive;
 	static boolean regular;
 	static boolean ultimate;
@@ -83,27 +81,15 @@ public class guiGuess_v06 {
 	static int score = 0;
 	static int total = 0;
 	
-	/* Default: Passives			[X]
-	 * 			Regular abilities	[X]
-	 * 			Ultimate ability	[X]
-	 */
-	public guiGuess_v06() throws IOException{
-		/**
-		 * @wbp.parser.constructor
-		 */
+	public guiGuess_v0_4() throws IOException{
 		passive = true;
 		regular = true;
 		ultimate = true;
 		getChamp();
 		init();
-		
 	}
 	
-	/*
-	 * Use parameters to select which types of icons to display
-	 */
-	public guiGuess_v06(boolean doPassives, boolean doRegulars, boolean doUltimates) throws IOException{
-		
+	public guiGuess_v0_4(boolean doPassives, boolean doRegulars, boolean doUltimates) throws IOException{
 		passive = doPassives;
 		regular = doRegulars;
 		ultimate = doUltimates;
@@ -111,16 +97,59 @@ public class guiGuess_v06 {
 		init();
 	}
 	
-	/*
-	 * First set of icons
-	 */
+	public static void getAbi(){
+		String returnThis = "";
+		
+		if(passive){
+			if(regular){
+				if(ultimate){ // All true
+					int rn = (int) (5 * Math.random());
+			    	if(rn==0) returnThis = "Q";
+			    	else if(rn==1) returnThis = "W";
+			    	else if(rn==2) returnThis = "E";
+			    	else if(rn==3) returnThis = "R";
+			    	else returnThis = "Passive";
+				}
+			}else{
+				if(ultimate){ // No regular abilities
+					int rn = (int) (3 * Math.random());
+			    	if(rn==0) returnThis = "Q";
+			    	else if(rn==1) returnThis = "R";
+			    	else returnThis = "Passive";
+				}else{ // Only passives
+					returnThis = "Passive";
+				}
+			}
+		}else{
+			if(regular){
+				if(ultimate){ // No passive
+					int rn = (int) (4 * Math.random());
+			    	if(rn==0) returnThis = "Q";
+			    	else if(rn==1) returnThis = "W";
+			    	else if(rn==2) returnThis = "E";
+			    	else returnThis = "R";
+				}
+				else{ // Only regular abilities
+					int rn = (int) (3 * Math.random());
+			    	if(rn==0) returnThis = "Q";
+			    	else if(rn==1) returnThis = "W";
+			    	else returnThis = "E";
+				}
+			}else{
+				if(ultimate){ // Only ultimates
+					returnThis = "Passive";
+				}
+			}
+		}
+		pass = returnThis;
+	}
+	
 	protected static void init() throws IOException{
 		
 		// Create JFrame
 		frame = new JFrame("Guess That Champion!");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(800, 600);
-		frame.setLocationRelativeTo(null);
 		
 		// Choose GUI Layout
 		gridbag = new GridBagLayout();
@@ -137,21 +166,18 @@ public class guiGuess_v06 {
 		
 		// Select champion, choose hint to be displayed
 		champ = newChamp();
+//		spells = champ.getSpells();
 		getAbi();
     	
     	// Load and display image to be displayed as hint
-		try{
-			champAbi = ImageIO.read(new File("lib/images/abilities/" + champ.getName() + "_" + pass + ".png"));
-		}catch(IOException e){
-			System.out.println("lib/images/abilities/" + champ.getName() + "_" + pass + ".png");
-		}
-		champAbility = new JLabel(new ImageIcon(champAbi));
+    	champAbi = ImageIO.read(new File("abilities/" + champ.getName() + "_" + pass + ".png"));
+    	champAbility = new JLabel(new ImageIcon(champAbi));
     	
 		// Load and display correct champion image, and 3 other champions
     	answer = (int) (4 * Math.random());
     	for(int i = 0; i < champPics.length; i++){
     		if(i==answer)
-    			champPics[i] = ImageIO.read(new File("lib/images/champs/" + champ.getName() + ".png"));
+    			champPics[i] = ImageIO.read(new File("champs/" + champ.getName() + ".png"));
     		else
     			champPics[i] = ImageIO.read(new File(newChampFill()));
     		champButts[i] = new JButton(new ImageIcon(champPics[i]));
@@ -241,9 +267,6 @@ public class guiGuess_v06 {
 		frame.setVisible(true);
 	}
 	
-	/*
-	 * Second set of icons (and onwards)
-	 */
 	public static void reset() throws IOException{
 		
 		// Select new champion, choose hint to be displayed
@@ -254,24 +277,18 @@ public class guiGuess_v06 {
 		getAbi();
     	
     	// Load and display hint image
-    	try{
-    	champAbi = ImageIO.read(new File("lib/images/abilities/" + champ.getName() + "_" + pass + ".png"));
-    	}catch (IOException e){System.out.println("Can't read: lib/images/abilities/" + champ.getName() + "_" + pass + ".png");}
+    	
+    	champAbi = ImageIO.read(new File("abilities/" + champ.getName() + "_" + pass + ".png"));
     	frame.getContentPane().remove(champAbility);
     	champAbility = new JLabel(new ImageIcon(champAbi));
     	
     	// Load and display correct champion image, and 3 other champion images
     	
 		for(int i = 0; i < champPics.length; i++){
-			if(i==answer){
-				try{
-				champPics[i] = ImageIO.read(new File("lib/images/champs/" + champ.getName() + ".png"));
-				}catch(IOException e) {System.out.println("lib/images/champs/" + champ.getName() + ".png");}
-			}else{
-				try{
+			if(i==answer)
+				champPics[i] = ImageIO.read(new File("champs/" + champ.getName() + ".png"));
+			else
 				champPics[i] = ImageIO.read(new File(newChampFill()));
-				}catch(IOException e){ System.out.println();}
-			}
 		}
     	
     	for(int i = 0; i < champButts.length; i++){
@@ -317,9 +334,7 @@ public class guiGuess_v06 {
 			public void mouseClicked(MouseEvent me) {
 				try {
 					handleScore(0);
-					if(total < champions.size() - 3)
-						reset();
-					else frame.dispose();
+					reset();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -330,9 +345,7 @@ public class guiGuess_v06 {
 			public void mouseClicked(MouseEvent me) {
 				try {
 					handleScore(1);
-					if(total < champions.size() - 3)
-						reset();
-					else frame.dispose();
+					reset();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -343,9 +356,7 @@ public class guiGuess_v06 {
 			public void mouseClicked(MouseEvent me) {
 				try {
 					handleScore(2);
-					if(total < champions.size() - 3)
-						reset();
-					else frame.dispose();
+					reset();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -356,9 +367,7 @@ public class guiGuess_v06 {
 			public void mouseClicked(MouseEvent me) {
 				try {
 					handleScore(3);
-					if(total < champions.size() - 3)
-						reset();
-					else frame.dispose();
+					reset();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -371,12 +380,14 @@ public class guiGuess_v06 {
 		frame.setVisible(true);
 	}
 	
-	/*
-	 * Request list of champions from Riot API, save in array of Champions
-	 */
+	public static void handleScore(int spot){
+		if(answer==spot) score++;
+		total++;
+//		System.out.println("Score: "+score + " / " + total);
+	}
+	
 	public static void getChamp() throws IOException{
-		
-		BufferedReader in = new BufferedReader(new FileReader("api-key.txt")); 
+		BufferedReader in = new BufferedReader(new FileReader("lib\\api-key.txt")); 
     	String text = in.readLine(); 
     	in.close();
     	
@@ -387,13 +398,7 @@ public class guiGuess_v06 {
         champions = RiotAPI.getChampions();
 	}
 	
-	/*
-	 * Find new champ, mark as used
-	 */
 	public static Champion newChamp(){
-		/**
-		 * @wbp.parser.constructor
-		 */
 		int index = (int)(champions.size() * Math.random());
 		while(used.contains(index))
 			index = (int)(champions.size() * Math.random());
@@ -402,93 +407,12 @@ public class guiGuess_v06 {
         return c;
 	}
 	
-	/*
-	 * Find new champ to fill in empty slot, don't mark as used yet
-	 */
 	public static String newChampFill(){
 		int index = (int)(champions.size() * Math.random());
 		while(used.contains(index))
 			index = (int)(champions.size() * Math.random());
         Champion c = champions.get(index);
-        return "lib/images/champs/" + c.getName() + ".png";
-	}
-	
-	/*
-	 * Generate string for an ability type to display
-	 */
-	public static void getAbi(){
-		
-		String returnThis = "";
-		
-		if(passive){
-			if(regular){
-				int rn = (int) (5 * Math.random());
-				if(rn==0) returnThis = "Q";
-				else if(rn==1) returnThis = "W";
-				else if(rn==2) returnThis = "E";
-				else if(rn==3) returnThis = "R";
-				else returnThis = "Passive";
-			}else{
-				if(ultimate){ // No regular abilities
-					int rn = (int) (3 * Math.random());
-			    	if(rn==0) returnThis = "Q";
-			    	else if(rn==1) returnThis = "R";
-			    	else returnThis = "Passive";
-				}else{ // Only passives
-					returnThis = "Passive";
-				}
-			}
-		}else{
-			if(regular){
-				if(ultimate){ // No passive
-					int rn = (int) (4 * Math.random());
-			    	if(rn==0) returnThis = "Q";
-			    	else if(rn==1) returnThis = "W";
-			    	else if(rn==2) returnThis = "E";
-			    	else returnThis = "R";
-				}
-				else{ // Only regular abilities
-					int rn = (int) (3 * Math.random());
-			    	if(rn==0) returnThis = "Q";
-			    	else if(rn==1) returnThis = "W";
-			    	else returnThis = "E";
-				}
-			}else{
-				if(ultimate){ // Only ultimates
-					returnThis = "Passive";
-				}
-			}
-		}
-		pass = returnThis;
-	}
-	
-	/*
-	 * Play a sound
-	 */
-	public static void playSound(String soundFile){
-		
-		try {
-	        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundFile).getAbsoluteFile());
-	        Clip clip = AudioSystem.getClip();
-	        clip.open(audioInputStream);
-	        clip.start();
-	    } catch(Exception ex) {
-	        System.out.println("Sound error on playing file: " + soundFile);
-	        ex.printStackTrace();
-	    }
-	}
-	
-	/*
-	 * Increment score when needed, and total guesses always
-	 */
-	public static void handleScore(int spot) throws IOException{
-		
-		if(answer==spot){
-			playSound("lib/sounds/correct.wav");
-			score++;
-		}else playSound("lib/sounds/incorrect.wav");
-		total++;
-//		System.out.println("Score: "+score + " / " + total);
+        return "champs/" + c.getName() + ".png";
 	}
 	
 }

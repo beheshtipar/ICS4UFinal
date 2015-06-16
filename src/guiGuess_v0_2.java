@@ -10,7 +10,12 @@
  * ----------------------------------------------------------------------------
  * 
  * FEATURES
- * - Fully functional gameplay w/images of champion ability/passive as hint
+ * - Fully-functional gameplay w/champion passive and champion ability as hint
+ * 
+ * NEW FEATURES
+ * - Instead of displaying the name of an ability and name of the passive,
+ *   the hint now displays the icon of a champ's passive, or of one of their
+ *   abilities
  *   
  * PLANNED FEATURES
  * - Menu
@@ -20,10 +25,13 @@
  * - Remove 2 options button (limited uses)
  *   
  * CODE ADJUSTMENTS
- * - Fixed screen bug
+ * - Swapped over to using Object arrays to store JButtons and JLabels
+ * - After some testing, it turns out that you can't just make a for loop to
+ *   add mmouseListeners to a group of Objects
  *   
  * KNOWN BUGS
- * - 
+ * - Screen requires minimizing, then reopening in order for next set of
+ *   champions to appear
  */
 
 import java.awt.*;
@@ -46,29 +54,27 @@ import com.robrua.orianna.type.core.common.Region;
 import com.robrua.orianna.type.core.staticdata.Champion;
 import com.robrua.orianna.type.core.staticdata.ChampionSpell;
 
-public class guiGuess_v03 {
+public class guiGuess_v0_2 {
 	
-	// JFrame stuff
+	static ArrayList<Integer> used = new ArrayList<Integer>();
+	static List<Champion> champions;
+	
 	static JFrame frame;
 	static GridBagLayout gridbag;
 	static GridBagConstraints c;
 	
-	// Champion stuff
-	static ArrayList<Integer> used = new ArrayList<Integer>();
-	static List<Champion> champions;
 	static Champion champ;
 //	static List<ChampionSpell> spells;
 	static JLabel champAbility;
+	
+	static String pass;
+	static int answer;
+	static int i;
+
 	static BufferedImage champAbi;
 	static BufferedImage champPics[] = new BufferedImage[4];
 	static JButton champButts[] = new JButton[4];
 	
-	// Counters/temporary variables
-	static String pass;
-	static int answer;
-	static int i;
-	
-	// Keep track of score
 	static int score = 0;
 	static int total = 0;
 	
@@ -91,11 +97,15 @@ public class guiGuess_v03 {
 		title.setFont(titleFont);
 		
 		// Select champion, choose hint to be displayed
+		
 		champ = newChamp();
 //		spells = champ.getSpells();
 		int rn = (int) (5 * Math.random());
-    	if(rn==0) pass = "Q"; 		else if(rn==1) pass = "W";
-    	else if(rn==2) pass = "E"; 	else if(rn==3) pass = "R";
+		
+    	if(rn==0) pass = "Q";
+    	else if(rn==1) pass = "W";
+    	else if(rn==2) pass = "E";
+    	else if(rn==3) pass = "R";
     	else pass = "Passive";
     	
     	// Load and display image to be displayed as hint
@@ -109,8 +119,10 @@ public class guiGuess_v03 {
     			champPics[i] = ImageIO.read(new File("champs/" + champ.getName() + ".png"));
     		else
     			champPics[i] = ImageIO.read(new File(newChampFill()));
-    		champButts[i] = new JButton(new ImageIcon(champPics[i]));
     	}
+		for(int i = 0; i < champButts.length; i++){
+			champButts[i] = new JButton(new ImageIcon(champPics[i]));
+		}
 		
 		// Add elements to screen
 		
@@ -195,7 +207,7 @@ public class guiGuess_v03 {
 	public static void reset() throws IOException{
 		
 		// Select new champion, choose hint to be displayed
-		
+			
 		champ = newChamp();
 //		spells = champ.getSpells();
 		pass = "";
@@ -215,14 +227,13 @@ public class guiGuess_v03 {
     	champAbility = new JLabel(new ImageIcon(champAbi));
     	
     	// Load and display correct champion image, and 3 other champion images
-    	
-		for(int i = 0; i < champPics.length; i++){
+		
+    	for(int i = 0; i < champPics.length; i++){
 			if(i==answer)
 				champPics[i] = ImageIO.read(new File("champs/" + champ.getName() + ".png"));
 			else
 				champPics[i] = ImageIO.read(new File(newChampFill()));
 		}
-    	
     	for(int i = 0; i < champButts.length; i++){
     		frame.getContentPane().remove(champButts[i]);
 			champButts[i] = new JButton(new ImageIcon(champPics[i]));
@@ -300,7 +311,6 @@ public class guiGuess_v03 {
 		});
 		
 		// Refresh frame
-		
 		frame.setVisible(true);
 	}
 	

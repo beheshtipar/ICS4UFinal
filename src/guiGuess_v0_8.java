@@ -53,7 +53,7 @@ import com.robrua.orianna.api.core.RiotAPI;
 import com.robrua.orianna.type.core.common.Region;
 import com.robrua.orianna.type.core.staticdata.Champion;
 
-public class guiGuess_v06b {
+public class guiGuess_v0_8 {
 	
 	// Instance variables
 	
@@ -104,7 +104,7 @@ public class guiGuess_v06b {
 	 * 			Regular abilities	[X]
 	 * 			Ultimate ability	[X]
 	 */
-	public guiGuess_v06b() throws IOException{
+	public guiGuess_v0_8() throws IOException{
 		passive = true;
 		regular = true;
 		ultimate = true;
@@ -115,7 +115,7 @@ public class guiGuess_v06b {
 	/*
 	 * Use parameters to select which types of icons to display
 	 */
-	public guiGuess_v06b(boolean doPassives, boolean doRegulars, boolean doUltimates) throws IOException{
+	public guiGuess_v0_8(boolean doPassives, boolean doRegulars, boolean doUltimates) throws IOException{
 		passive = doPassives;
 		regular = doRegulars;
 		ultimate = doUltimates;
