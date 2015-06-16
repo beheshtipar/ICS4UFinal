@@ -297,7 +297,11 @@ public class mainFrame_v3 {
 					lblLoadingGif.setVisible(true);
 					
 					// Move on to game, pass in appropriate variables
-					new guiGuess_v1_2(champions, checkPassive.isSelected(), checkDefault.isSelected(), checkUlti.isSelected());
+					// Move on to game, pass in appropriate variables
+					if(!(checkPassive.isSelected() || checkDefault.isSelected() || checkUlti.isSelected()) )
+						new guiGuess_v1_2(champions, true, true, true);
+					else
+						new guiGuess_v1_2(champions, checkPassive.isSelected(), checkDefault.isSelected(), checkUlti.isSelected());
 					
 					// Dispose of current frame
 					frame.dispose();
