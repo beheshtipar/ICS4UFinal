@@ -98,13 +98,15 @@ public class guiGuess_v1_1 {
 	// Keep track of score
 	static JLabel scoreLabel;
 	static JLabel pointsLabel;
+	static int score = 0;
+	static int total = 0;
+	static int points = 0;
+	
+	// Keep track of lives
 	static JLabel lblLife1;
 	static JLabel lblLife2;
 	static JLabel lblLife3;
 	static int lives = 3;
-	static int score = 0;
-	static int total = 0;
-	static int points = 0;
 	
 	// Keep track of time
 	static StopWatch watch = new StopWatch();
@@ -489,7 +491,7 @@ public class guiGuess_v1_1 {
 		// Add listeners to buttons
 		
 		champButts[0].addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent me) {
+			public void mousePressed(MouseEvent me) {
 				try {
 					handleScore(0);
 					roundEnd = watch.getElapsedTimeSecs();
@@ -509,7 +511,7 @@ public class guiGuess_v1_1 {
 			}
 		});
 		champButts[1].addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent me) {
+			public void mousePressed(MouseEvent me) {
 				try {
 					handleScore(1);
 					roundEnd = watch.getElapsedTimeSecs();
@@ -529,7 +531,7 @@ public class guiGuess_v1_1 {
 			}
 		});
 		champButts[2].addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent me) {
+			public void mousePressed(MouseEvent me) {
 				try {
 					handleScore(2);
 					roundEnd = watch.getElapsedTimeSecs();
@@ -549,7 +551,7 @@ public class guiGuess_v1_1 {
 			}
 		});
 		champButts[3].addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent me) {
+			public void mousePressed(MouseEvent me) {
 				try {
 					handleScore(3);
 					roundEnd = watch.getElapsedTimeSecs();
@@ -693,7 +695,7 @@ public class guiGuess_v1_1 {
 		// Add listeners to buttons
 		
 		champButts[0].addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent me) {
+			public void mousePressed(MouseEvent me) {
 				try {
 					if((total < champions.size() - 3) && (gameStart < 60) && (lives > 0)){
 						handleScore(0);
@@ -713,7 +715,7 @@ public class guiGuess_v1_1 {
 			}
 		});
 		champButts[1].addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent me) {
+			public void mousePressed(MouseEvent me) {
 				try {
 					if((total < champions.size() - 3) && (gameStart < 60) && (lives > 0)){
 						handleScore(1);
@@ -733,7 +735,7 @@ public class guiGuess_v1_1 {
 			}
 		});
 		champButts[2].addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent me) {
+			public void mousePressed(MouseEvent me) {
 				try {
 					if((total < champions.size() - 3) && (gameStart < 60) && (lives > 0)){
 						handleScore(2);
@@ -753,7 +755,7 @@ public class guiGuess_v1_1 {
 			}
 		});
 		champButts[3].addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent me) {
+			public void mousePressed(MouseEvent me) {
 				try {
 					if((total < champions.size() - 3) && (gameStart < 60) && (lives > 0)){
 						handleScore(3);
