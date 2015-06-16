@@ -495,12 +495,12 @@ public class guiGuess_v1_1 {
 					roundEnd = watch.getElapsedTimeSecs();
 					roundTime = roundEnd-roundStart;
 					roundStart = roundEnd;
-					System.out.println("R: " + roundTime);
+//					System.out.println("R: " + roundTime);
 					if((total < champions.size() - 3) && (gameStart < 60))
 						nextRound();
 					else{
 						frame.dispose();
-						new mainFrame_V2(0);
+						new mainFrame_v2(0);
 					}
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -515,12 +515,12 @@ public class guiGuess_v1_1 {
 					roundEnd = watch.getElapsedTimeSecs();
 					roundTime = roundEnd-roundStart;
 					roundStart = roundEnd;
-					System.out.println("R: " + roundTime);
+//					System.out.println("R: " + roundTime);
 					if((total < champions.size() - 3) && (gameStart < 60))
 						nextRound();
 					else{
 						frame.dispose();
-						new mainFrame_V2(0);
+						new mainFrame_v2(0);
 					}
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -535,12 +535,12 @@ public class guiGuess_v1_1 {
 					roundEnd = watch.getElapsedTimeSecs();
 					roundTime = roundEnd-roundStart;
 					roundStart = roundEnd;
-					System.out.println("R: " + roundTime);
+//					System.out.println("R: " + roundTime);
 					if((total < champions.size() - 3) && (gameStart < 60))
 						nextRound();
 					else{
 						frame.dispose();
-						new mainFrame_V2(0);
+						new mainFrame_v2(0);
 					}
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -555,12 +555,12 @@ public class guiGuess_v1_1 {
 					roundEnd = watch.getElapsedTimeSecs();
 					roundTime = roundEnd-roundStart;
 					roundStart = roundEnd;
-					System.out.println("R: " + roundTime);
+//					System.out.println("R: " + roundTime);
 					if((total < champions.size() - 3) && (gameStart < 60))
 						nextRound();
 					else{
 						frame.dispose();
-						new mainFrame_V2(0);
+						new mainFrame_v2(0);
 					}
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -700,7 +700,7 @@ public class guiGuess_v1_1 {
 						roundEnd = watch.getElapsedTimeSecs();
 						roundTime = roundEnd-roundStart;
 						roundStart = roundEnd;
-						System.out.println("R: " + roundTime);
+//						System.out.println("R: " + roundTime);
 						nextRound();
 					}else{
 						frame.setVisible(false);
@@ -720,7 +720,7 @@ public class guiGuess_v1_1 {
 						roundEnd = watch.getElapsedTimeSecs();
 						roundTime = roundEnd-roundStart;
 						roundStart = roundEnd;
-						System.out.println("R: " + roundTime);
+//						System.out.println("R: " + roundTime);
 						nextRound();
 					}else{
 						frame.setVisible(false);
@@ -740,7 +740,7 @@ public class guiGuess_v1_1 {
 						roundEnd = watch.getElapsedTimeSecs();
 						roundTime = roundEnd-roundStart;
 						roundStart = roundEnd;
-						System.out.println("R: " + roundTime);
+//						System.out.println("R: " + roundTime);
 						nextRound();
 					}else{
 						frame.setVisible(false);
@@ -760,7 +760,7 @@ public class guiGuess_v1_1 {
 						roundEnd = watch.getElapsedTimeSecs();
 						roundTime = roundEnd-roundStart;
 						roundStart = roundEnd;
-						System.out.println("R: " + roundTime);
+//						System.out.println("R: " + roundTime);
 						nextRound();
 					}else{
 						frame.setVisible(false);
@@ -790,7 +790,7 @@ public class guiGuess_v1_1 {
 				try {
 					// Reset stats
 					lives = 3;
-					mainFrame_V2 window = new mainFrame_V2(points);
+					mainFrame_v2 window = new mainFrame_v2(points);
 					points = 0;
 					window.frame.setVisible(true);
 				} catch (Exception e) {

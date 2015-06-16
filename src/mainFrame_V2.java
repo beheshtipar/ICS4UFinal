@@ -35,7 +35,7 @@ import com.robrua.orianna.api.core.RiotAPI;
 import com.robrua.orianna.type.core.common.Region;
 import com.robrua.orianna.type.core.staticdata.Champion;
 
-public class mainFrame_V2 {
+public class mainFrame_v2 {
 
 	JCheckBox checkPassive, checkDefault, checkUlti;
 	
@@ -53,7 +53,7 @@ public class mainFrame_V2 {
 		EventQueue.invokeLater(new Runnable() {			//secure way to run swing applications
 			public void run() {
 				try {
-					mainFrame_V2 window = new mainFrame_V2();
+					mainFrame_v2 window = new mainFrame_v2();
 					String disc = "\"Guess That Champion!\" isn't endorsed by Riot Games and doesn't reflect \nthe views or opinions of Riot Games or anyone officially involved in producing or managing League of Legends. \nLeague of Legends and Riot Games are trademarks or registered trademarks of Riot Games, Inc. League of Legends © Riot Games, Inc.";
 					JOptionPane.showMessageDialog(window.frame, disc, "Disclaimer", JOptionPane.WARNING_MESSAGE );
 					
@@ -78,11 +78,11 @@ public class mainFrame_V2 {
 	 * Create the application.
 	 * @throws IOException 
 	 */
-	public mainFrame_V2() throws IOException {
+	public mainFrame_v2() throws IOException {
 		initialize();
 	}
 	
-	public mainFrame_V2(int score) throws IOException {
+	public mainFrame_v2(int score) throws IOException {
 		String disc = "You got a score of: " + score;
 		JOptionPane.showMessageDialog(this.frame, disc, "Alert", JOptionPane.WARNING_MESSAGE );
 		reset();
@@ -172,7 +172,11 @@ public class mainFrame_V2 {
 					btnStart.setVisible(false);
 					lblLoadingGif.setVisible(true);
 					
-					new guiGuess_v1_1(champions, checkPassive.isSelected(), checkDefault.isSelected(), checkUlti.isSelected());
+					if(!(checkPassive.isSelected() || checkDefault.isSelected() || checkUlti.isSelected()) )
+						new guiGuess_v1_1(champions, true, true, true);
+					else
+						new guiGuess_v1_1(champions, checkPassive.isSelected(), checkDefault.isSelected(), checkUlti.isSelected());
+					
 					frame.dispose();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block

@@ -19,7 +19,7 @@ public class guessDriver {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					mainFrame_V2 window = new mainFrame_V2();
+					mainFrame_v2 window = new mainFrame_v2();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
