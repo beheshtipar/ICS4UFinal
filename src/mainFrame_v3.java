@@ -247,6 +247,7 @@ public class mainFrame_v3 {
 		checkPassive.setForeground(Color.GREEN);
 		checkPassive.setFont(new Font("Yu Gothic", Font.BOLD, 14));
 		checkPassive.setOpaque(false);
+		checkPassive.setToolTipText("Ex: Bard's Traveler's Call");
 		mainPane.setLayer(checkPassive, 1);
 		checkPassive.setBounds(6, 88, 164, 37);
 		mainPane.add(checkPassive);
@@ -256,7 +257,7 @@ public class mainFrame_v3 {
 		checkDefault.setOpaque(false);
 		checkDefault.setForeground(Color.GREEN);
 		checkDefault.setFont(new Font("Yu Gothic", Font.BOLD, 14));
-		checkDefault.setToolTipText("Such as champion Q, W, E");
+		checkDefault.setToolTipText("Ex: Ahri's Foxfire");
 		mainPane.setLayer(checkDefault, 1);
 		checkDefault.setBounds(227, 88, 225, 37);
 		mainPane.add(checkDefault);
@@ -266,6 +267,7 @@ public class mainFrame_v3 {
 		checkUlti.setOpaque(false);
 		checkUlti.setForeground(Color.GREEN);
 		checkUlti.setFont(new Font("Yu Gothic", Font.BOLD, 14));
+		checkUlti.setToolTipText("Ex: Ekko's Chronobreak");
 		mainPane.setLayer(checkUlti, 1);
 		checkUlti.setBounds(503, 88, 172, 37);
 		mainPane.add(checkUlti);
