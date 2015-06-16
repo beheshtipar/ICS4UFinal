@@ -500,7 +500,7 @@ public class guiGuess_v1_0 {
 						nextRound();
 					else{
 						frame.dispose();
-						new mainFrame_v1(0);
+						new mainFrame_v2(0);
 					}
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -520,7 +520,7 @@ public class guiGuess_v1_0 {
 						nextRound();
 					else{
 						frame.dispose();
-						new mainFrame_v1(0);
+						new mainFrame_v2(0);
 					}
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -540,7 +540,7 @@ public class guiGuess_v1_0 {
 						nextRound();
 					else{
 						frame.dispose();
-						new mainFrame_v1(0);
+						new mainFrame_v2(0);
 					}
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -560,7 +560,7 @@ public class guiGuess_v1_0 {
 						nextRound();
 					else{
 						frame.dispose();
-						new mainFrame_v1(0);
+						new mainFrame_v2(0);
 					}
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -791,7 +791,7 @@ public class guiGuess_v1_0 {
 					// Reset stats
 					lives = 3;
 					points = 0;
-					mainFrame_v1 window = new mainFrame_v1(0);
+					mainFrame_v2 window = new mainFrame_v2(0);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
