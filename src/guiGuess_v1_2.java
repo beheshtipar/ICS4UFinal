@@ -901,7 +901,7 @@ public class guiGuess_v1_2 {
 				}
 			}else{
 				if(ultimate){ // Only ultimates
-					returnThis = "Passive";
+					returnThis = "R";
 				}
 			}
 		}
