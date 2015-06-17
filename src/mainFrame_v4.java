@@ -21,6 +21,7 @@
  * 
  * NEW FEATURES
  * - Time limit can now be changed to 30, 60, 90, 120, or 150 seconds
+ * - Life limit can now be changed to 1, 3, 5, 7, or 9 lives
  * 
  * PLANNED FEATURES
  * - Select which *champion* categories you'll be tested on (only Marksmen, only Fighters, etc.)
@@ -67,6 +68,7 @@ import com.robrua.orianna.type.core.common.Region;
 import com.robrua.orianna.type.core.staticdata.Champion;
 
 import javax.swing.JComboBox;
+import java.awt.SystemColor;
 
 public class mainFrame_v4 {
 	
@@ -92,7 +94,7 @@ public class mainFrame_v4 {
 					JOptionPane.showMessageDialog(window.frame, disc, "Disclaimer", JOptionPane.WARNING_MESSAGE );
 					
 					// Get list of champions
-					BufferedReader in = new BufferedReader(new FileReader("api-key.txt")); 
+					BufferedReader in = new BufferedReader(new FileReader("lib//api-key.txt")); 
 			    	String text = in.readLine(); 
 			    	in.close();
 			        RiotAPI.setMirror(Region.NA);
@@ -219,11 +221,23 @@ public class mainFrame_v4 {
 		String[] diffStrings = { "30 seconds", "60 seconds", "90 seconds", "120 seconds", "150 seconds" };
 		
 		btnDiff = new JComboBox(diffStrings);
+		btnDiff.setBackground(SystemColor.inactiveCaption);
 		mainPane.setLayer(btnDiff, 1);
 		btnDiff.setToolTipText("Time Limit");
 		btnDiff.setMaximumRowCount(5);
 		btnDiff.setBounds(504, 140, 150, 20);
 		mainPane.add(btnDiff);
+		
+		String[] lifeString = { "1 life", "3 lives", "5 lives", "7 lives", "9 lives" };
+		
+		JComboBox btnLives = new JComboBox(lifeString);
+		btnLives.setMaximumRowCount(5);
+		btnLives.setBackground(SystemColor.inactiveCaption);
+		mainPane.setLayer(btnLives, 1);
+		btnLives.setToolTipText("Lives");
+		btnDiff.setMaximumRowCount(5);
+		btnLives.setBounds(10, 140, 160, 20);
+		mainPane.add(btnLives);
 		
 		// Add functionality to start button
 		btnStart.addMouseListener(new MouseAdapter(){
@@ -248,11 +262,15 @@ public class mainFrame_v4 {
 					int limit = (x+1) * 30;
 //					System.out.println(limit);
 					
+					int y = btnLives.getSelectedIndex();
+					int lives = (y*2)+1;
+//					System.out.println(lives);
+					
 					// Move on to game, pass in appropriate variables
 					if(!(checkPassive.isSelected() || checkDefault.isSelected() || checkUlti.isSelected()) )
-						new guiGuess_v1_3(champions, limit, true, true, true);
+						new guiGuess_v1_3(champions, limit, lives, true, true, true);
 					else
-						new guiGuess_v1_3(champions, limit, checkPassive.isSelected(), checkDefault.isSelected(), checkUlti.isSelected());
+						new guiGuess_v1_3(champions, limit, lives, checkPassive.isSelected(), checkDefault.isSelected(), checkUlti.isSelected());
 					
 					// Dispose of current frame
 					frame.dispose();
@@ -364,6 +382,15 @@ public class mainFrame_v4 {
 		btnDiff.setBounds(504, 140, 150, 20);
 		mainPane.add(btnDiff);
 		
+		String[] lifeString = { "1 life", "3 lives", "5 lives", "7 lives", "9 lives" };
+		
+		JComboBox btnLives = new JComboBox(lifeString);
+		mainPane.setLayer(btnLives, 1);
+		btnLives.setToolTipText("Lives");
+		btnDiff.setMaximumRowCount(5);
+		btnLives.setBounds(10, 140, 160, 20);
+		mainPane.add(btnLives);
+		
 		// Add functionality to start button
 		btnStart.addMouseListener(new MouseAdapter(){
 			public void mouseClicked(MouseEvent me) {
@@ -387,11 +414,15 @@ public class mainFrame_v4 {
 					int limit = (x+1) * 30;
 //					System.out.println(limit);
 					
+					int y = btnLives.getSelectedIndex();
+					int lives = (y*2)+1;
+//					System.out.println(lives);
+					
 					// Move on to game, pass in appropriate variables
 					if(!(checkPassive.isSelected() || checkDefault.isSelected() || checkUlti.isSelected()) )
-						new guiGuess_v1_3(champions, limit, true, true, true);
+						new guiGuess_v1_3(champions, limit, lives, true, true, true);
 					else
-						new guiGuess_v1_3(champions, limit, checkPassive.isSelected(), checkDefault.isSelected(), checkUlti.isSelected());
+						new guiGuess_v1_3(champions, limit, lives, checkPassive.isSelected(), checkDefault.isSelected(), checkUlti.isSelected());
 					
 					// Dispose of current frame
 					frame.dispose();

@@ -21,6 +21,7 @@
  * 
  * NEW FEATURES
  * - Time limit can now be changed to 30, 60, 90, 120, or 150 seconds
+ * - Life limit can now be changed to 1, 3, 5, 7, or 9 lives
  * 
  * PLANNED FEATURES
  * - Select which *champion* categories you'll be tested on (only Marksmen, only Fighters, etc.)
@@ -112,6 +113,7 @@ public class guiGuess_v1_3 {
 	static JLabel lblLife1;
 	static JLabel lblLife2;
 	static JLabel lblLife3;
+	static JLabel lblLife[] = new JLabel[1];
 	static int lives = 3;
 	
 	// Keep track of time
@@ -129,24 +131,36 @@ public class guiGuess_v1_3 {
 	 * 			Regular abilities	[X]
 	 * 			Ultimate ability	[X]
 	 */
-	public guiGuess_v1_3(List<Champion> champs, int limit) throws IOException{
+	public guiGuess_v1_3(List<Champion> champs, int limit, int liveLimit) throws IOException{
 		passive = true;
 		regular = true;
 		ultimate = true;
 		champions = champs;
 		cap = limit;
+		BufferedImage life = ImageIO.read(new File("lib//images//lives.png"));
+		lives = liveLimit;
+		lblLife = new JLabel[lives];
+//		System.out.println(lives);
+		for(int i = 0; i < lives; i++)
+			lblLife[i] = new JLabel(new ImageIcon(life));
 		play();
 	}
 	
 	/*
 	 * Use parameters to select which types of icons to display
 	 */
-	public guiGuess_v1_3(List<Champion> champs, int limit, boolean doPassives, boolean doRegulars, boolean doUltimates) throws IOException{
+	public guiGuess_v1_3(List<Champion> champs, int limit, int liveLimit, boolean doPassives, boolean doRegulars, boolean doUltimates) throws IOException{
 		passive = doPassives;
 		regular = doRegulars;
 		ultimate = doUltimates;
 		champions = champs;
 		cap = limit;
+		BufferedImage life = ImageIO.read(new File("lib//images//lives.png"));
+		lives = liveLimit;
+		lblLife = new JLabel[lives];
+//		System.out.println(lives);
+		for(int i = 0; i < lives; i++)
+			lblLife[i] = new JLabel(new ImageIcon(life));
 		play();
 	}
 	
@@ -230,13 +244,18 @@ public class guiGuess_v1_3 {
     	timeLabel.setBounds(384, 512, 50, 37);
 
     	// Initialize life bars
-    	BufferedImage life = ImageIO.read(new File("lib//images//lives.png"));
-    	lblLife1 = new JLabel(new ImageIcon(life));
-    	lblLife1.setBounds(650, 200, 64, 64);
-    	lblLife2 = new JLabel(new ImageIcon(life));
-    	lblLife2.setBounds(650, 274, 64, 64);
-    	lblLife3 = new JLabel(new ImageIcon(life));
-    	lblLife3.setBounds(650, 348, 64, 64);
+    	try{
+    		lblLife[0].setBounds(650, 348, 64, 64);
+    		lblLife[1].setBounds(650, 274, 64, 64);
+    		lblLife[2].setBounds(650, 200, 64, 64);
+    		lblLife[3].setBounds(650, 126, 64, 64);
+
+    		lblLife[4].setBounds(720, 348, 64, 64);
+    		lblLife[5].setBounds(720, 274, 64, 64);
+    		lblLife[6].setBounds(720, 200, 64, 64);
+    		lblLife[7].setBounds(720, 126, 64, 64);
+    		lblLife[8].setBounds(720, 52, 64, 64);
+    	} catch(ArrayIndexOutOfBoundsException a){}
     	
     	// Add elements to pane
     	
@@ -249,9 +268,25 @@ public class guiGuess_v1_3 {
 		mainPane.add(pointsLabel);
 		mainPane.add(timeLabel);
 		
-		mainPane.add(lblLife1);
-		mainPane.add(lblLife2);
-		mainPane.add(lblLife3);
+		// Manage lives count
+    	if(lives>8)
+    		mainPane.add(lblLife[8]);
+    	if(lives>7)
+    		mainPane.add(lblLife[7]);
+    	if(lives>6)
+    		mainPane.add(lblLife[6]);
+    	if(lives>5)
+    		mainPane.add(lblLife[5]);
+    	if(lives>4)
+    		mainPane.add(lblLife[4]);
+    	if(lives>3)
+    		mainPane.add(lblLife[3]);
+    	if(lives>2)
+    		mainPane.add(lblLife[2]);
+    	if(lives>1)
+    		mainPane.add(lblLife[1]);
+    	if(lives>0)
+    		mainPane.add(lblLife[0]);
 		
 		// Background for timer/score tracker
 		timerBG = new JPanel();
@@ -394,10 +429,18 @@ public class guiGuess_v1_3 {
 
 		mainPane.remove(pointsLabel);
 		mainPane.remove(timeLabel);
-
-		mainPane.remove(lblLife1);
-		mainPane.remove(lblLife2);
-		mainPane.remove(lblLife3);
+		
+		try{
+			mainPane.remove(lblLife[0]);
+			mainPane.remove(lblLife[1]);
+			mainPane.remove(lblLife[2]);
+			mainPane.remove(lblLife[3]);
+			mainPane.remove(lblLife[4]);
+			mainPane.remove(lblLife[5]);
+			mainPane.remove(lblLife[6]);
+			mainPane.remove(lblLife[7]);
+			mainPane.remove(lblLife[8]);
+    	} catch(ArrayIndexOutOfBoundsException a){}
 		
 		layeredPane.remove(timerBG);
 		
@@ -470,12 +513,24 @@ public class guiGuess_v1_3 {
     	layeredPane.add(timerBG);
     	
     	// Manage lives count
+    	if(lives>8)
+    		mainPane.add(lblLife[8]);
+    	if(lives>7)
+    		mainPane.add(lblLife[7]);
+    	if(lives>6)
+    		mainPane.add(lblLife[6]);
+    	if(lives>5)
+    		mainPane.add(lblLife[5]);
+    	if(lives>4)
+    		mainPane.add(lblLife[4]);
+    	if(lives>3)
+    		mainPane.add(lblLife[3]);
     	if(lives>2)
-    		mainPane.add(lblLife1);
+    		mainPane.add(lblLife[2]);
     	if(lives>1)
-    		mainPane.add(lblLife2);
+    		mainPane.add(lblLife[1]);
     	if(lives>0)
-    		mainPane.add(lblLife3);
+    		mainPane.add(lblLife[0]);
 		
 		// Add listeners to buttons
 		
