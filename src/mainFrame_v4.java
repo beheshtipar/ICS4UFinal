@@ -175,7 +175,7 @@ public class mainFrame_v4 {
 		mainPane.setLayer(lblTitle, 1);
 		mainPane.add(lblTitle);
 		
-		// Passive checkbox
+		// Initialize Passive checkbox
 		checkPassive = new JCheckBox("Champion Passive");
 		checkPassive.setFont(new Font("Yu Gothic", Font.BOLD, 14));
 		checkPassive.setOpaque(false);
@@ -183,7 +183,7 @@ public class mainFrame_v4 {
 		mainPane.setLayer(checkPassive, 1);
 		checkPassive.setBounds(6, 88, 164, 37);
 		
-		// Default checkbox
+		// Initialize Default checkbox
 		checkDefault = new JCheckBox("Champion Non-Ultimate");
 		checkDefault.setOpaque(false);
 		checkDefault.setFont(new Font("Yu Gothic", Font.BOLD, 14));
@@ -191,7 +191,7 @@ public class mainFrame_v4 {
 		mainPane.setLayer(checkDefault, 1);
 		checkDefault.setBounds(227, 88, 225, 37);
 		
-		// Ultimate checkbox
+		// Initialize Ultimate checkbox
 		checkUlti = new JCheckBox("Champion Ultimate");
 		checkUlti.setOpaque(false);
 		checkUlti.setFont(new Font("Yu Gothic", Font.BOLD, 14));
@@ -199,15 +199,15 @@ public class mainFrame_v4 {
 		mainPane.setLayer(checkUlti, 1);
 		checkUlti.setBounds(503, 88, 172, 37);
 		
-		// Start button
+		// Initialize Start button
 		btnStart = new JButton("Start!");
 		btnStart.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 15));
 		mainPane.setLayer(btnStart, 1);
 		btnStart.setBounds(260, 171, 150, 62);
 		mainPane.add(btnStart);
 		
+		// Set color of checkbox font 
 		String OS = System.getProperty("os.name").toLowerCase();
-		
 		if(OS.indexOf("win") == 0){
 			checkPassive.setForeground(Color.RED);
 			checkDefault.setForeground(Color.ORANGE);
@@ -219,29 +219,27 @@ public class mainFrame_v4 {
 			checkUlti.setForeground(Color.GREEN);
 		}
 		
+		// Initialize Drop-down menus
+		String[] diffStrings = { "30 seconds", "60 seconds", "90 seconds", "120 seconds", "150 seconds" };
+		String[] lifeString = { "1 life", "3 lives", "5 lives", "7 lives", "9 lives" };
+		btnDiff = new JComboBox(diffStrings);
+		btnLives = new JComboBox(lifeString);
+		btnDiff.setBackground(SystemColor.inactiveCaption);
+		btnLives.setBackground(SystemColor.inactiveCaption);
+		mainPane.setLayer(btnDiff, 1);
+		mainPane.setLayer(btnLives, 1);
+		btnDiff.setToolTipText("Time Limit");
+		btnLives.setToolTipText("Lives");
+		btnDiff.setMaximumRowCount(5);
+		btnLives.setMaximumRowCount(5);
+		btnDiff.setBounds(504, 140, 150, 20);
+		btnLives.setBounds(10, 140, 160, 20);
+		
+		// Add elements
 		mainPane.add(checkPassive);
 		mainPane.add(checkDefault);
 		mainPane.add(checkUlti);
-		
-		String[] diffStrings = { "30 seconds", "60 seconds", "90 seconds", "120 seconds", "150 seconds" };
-		
-		btnDiff = new JComboBox(diffStrings);
-		btnDiff.setBackground(SystemColor.inactiveCaption);
-		mainPane.setLayer(btnDiff, 1);
-		btnDiff.setToolTipText("Time Limit");
-		btnDiff.setMaximumRowCount(5);
-		btnDiff.setBounds(504, 140, 150, 20);
 		mainPane.add(btnDiff);
-		
-		String[] lifeString = { "1 life", "3 lives", "5 lives", "7 lives", "9 lives" };
-		
-		btnLives = new JComboBox(lifeString);
-		btnLives.setMaximumRowCount(5);
-		btnLives.setBackground(SystemColor.inactiveCaption);
-		mainPane.setLayer(btnLives, 1);
-		btnLives.setToolTipText("Lives");
-		btnDiff.setMaximumRowCount(5);
-		btnLives.setBounds(10, 140, 160, 20);
 		mainPane.add(btnLives);
 		
 		// Add functionality to start button
@@ -263,13 +261,11 @@ public class mainFrame_v4 {
 					btnStart.setVisible(false);
 					lblLoadingGif.setVisible(true);
 					
+					// Find out what user selected in menus
 					int x = btnDiff.getSelectedIndex();
 					int limit = (x+1) * 30;
-//					System.out.println(limit);
-					
 					int y = btnLives.getSelectedIndex();
 					int lives = (y*2)+1;
-//					System.out.println(lives);
 					
 					// Move on to game, pass in appropriate variables
 					if(!(checkPassive.isSelected() || checkDefault.isSelected() || checkUlti.isSelected()) )
@@ -324,48 +320,48 @@ public class mainFrame_v4 {
 
 		// Set title
 		JLabel lblTitle = new JLabel("Guess That Champion!");
-		lblTitle.setForeground(UIManager.getColor("Menu.background"));
+		lblTitle.setForeground(Color.BLACK);
 		lblTitle.setBounds(10, 23, 644, 27);
 
 		// Title font settings
-		lblTitle.setFont(new Font("WeblySleek UI Semibold", Font.BOLD, 20));
+		lblTitle.setFont(new Font("Engravers MT", Font.BOLD, 20));
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		mainPane.setLayer(lblTitle, 1);
 		mainPane.add(lblTitle);
 
-		// Passive checkbox
+		// Initialize Passive checkbox
 		checkPassive = new JCheckBox("Champion Passive");
 		checkPassive.setFont(new Font("Yu Gothic", Font.BOLD, 14));
 		checkPassive.setOpaque(false);
 		checkPassive.setToolTipText("Ex: Bard's Traveler's Call");
 		mainPane.setLayer(checkPassive, 1);
 		checkPassive.setBounds(6, 88, 164, 37);
-
-		// Default checkbox
+		
+		// Initialize Default checkbox
 		checkDefault = new JCheckBox("Champion Non-Ultimate");
 		checkDefault.setOpaque(false);
 		checkDefault.setFont(new Font("Yu Gothic", Font.BOLD, 14));
 		checkDefault.setToolTipText("Ex: Ahri's Foxfire");
 		mainPane.setLayer(checkDefault, 1);
 		checkDefault.setBounds(227, 88, 225, 37);
-
-		// Ultimate checkbox
+		
+		// Initialize Ultimate checkbox
 		checkUlti = new JCheckBox("Champion Ultimate");
 		checkUlti.setOpaque(false);
 		checkUlti.setFont(new Font("Yu Gothic", Font.BOLD, 14));
 		checkUlti.setToolTipText("Ex: Ekko's Chronobreak");
 		mainPane.setLayer(checkUlti, 1);
 		checkUlti.setBounds(503, 88, 172, 37);
-
-		// Start button
+		
+		// Initialize Start button
 		btnStart = new JButton("Start!");
 		btnStart.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 15));
 		mainPane.setLayer(btnStart, 1);
 		btnStart.setBounds(260, 171, 150, 62);
 		mainPane.add(btnStart);
-
+		
+		// Set color of checkbox font 
 		String OS = System.getProperty("os.name").toLowerCase();
-
 		if(OS.indexOf("win") == 0){
 			checkPassive.setForeground(Color.RED);
 			checkDefault.setForeground(Color.ORANGE);
@@ -376,27 +372,28 @@ public class mainFrame_v4 {
 			checkDefault.setForeground(Color.GREEN);
 			checkUlti.setForeground(Color.GREEN);
 		}
-
+		
+		// Initialize Drop-down menus
+		String[] diffStrings = { "30 seconds", "60 seconds", "90 seconds", "120 seconds", "150 seconds" };
+		String[] lifeString = { "1 life", "3 lives", "5 lives", "7 lives", "9 lives" };
+		btnDiff = new JComboBox(diffStrings);
+		btnLives = new JComboBox(lifeString);
+		btnDiff.setBackground(SystemColor.inactiveCaption);
+		btnLives.setBackground(SystemColor.inactiveCaption);
+		mainPane.setLayer(btnDiff, 1);
+		mainPane.setLayer(btnLives, 1);
+		btnDiff.setToolTipText("Time Limit");
+		btnLives.setToolTipText("Lives");
+		btnDiff.setMaximumRowCount(5);
+		btnLives.setMaximumRowCount(5);
+		btnDiff.setBounds(504, 140, 150, 20);
+		btnLives.setBounds(10, 140, 160, 20);
+		
+		// Add elements
 		mainPane.add(checkPassive);
 		mainPane.add(checkDefault);
 		mainPane.add(checkUlti);
-		
-		String[] diffStrings = { "30 seconds", "60 seconds", "90 seconds", "120 seconds", "150 seconds" };
-		
-		btnDiff = new JComboBox(diffStrings);
-		mainPane.setLayer(btnDiff, 1);
-		btnDiff.setToolTipText("Time Limit");
-		btnDiff.setMaximumRowCount(4);
-		btnDiff.setBounds(504, 140, 150, 20);
 		mainPane.add(btnDiff);
-		
-		String[] lifeString = { "1 life", "3 lives", "5 lives", "7 lives", "9 lives" };
-		
-		btnLives = new JComboBox(lifeString);
-		mainPane.setLayer(btnLives, 1);
-		btnLives.setToolTipText("Lives");
-		btnDiff.setMaximumRowCount(5);
-		btnLives.setBounds(10, 140, 160, 20);
 		mainPane.add(btnLives);
 		
 		// Add functionality to start button
@@ -418,13 +415,11 @@ public class mainFrame_v4 {
 					btnStart.setVisible(false);
 					lblLoadingGif.setVisible(true);
 					
+					// Find out what user selected in menus
 					int x = btnDiff.getSelectedIndex();
 					int limit = (x+1) * 30;
-//					System.out.println(limit);
-					
 					int y = btnLives.getSelectedIndex();
 					int lives = (y*2)+1;
-//					System.out.println(lives);
 					
 					// Move on to game, pass in appropriate variables
 					if(!(checkPassive.isSelected() || checkDefault.isSelected() || checkUlti.isSelected()) )
