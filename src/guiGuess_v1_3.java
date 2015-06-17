@@ -274,7 +274,7 @@ public class guiGuess_v1_3 {
 					
 					// Start new round
 					roundStart = roundEnd;
-					if((total < champions.size() - 3) && (gameStart < cap))
+					if((total < champions.size() - 3) && (gameStart < cap) && (lives > 0))
 						nextRound();
 					else{
 						frame.dispose();
@@ -297,7 +297,7 @@ public class guiGuess_v1_3 {
 					
 					// Start new round
 					roundStart = roundEnd;
-					if((total < champions.size() - 3) && (gameStart < cap))
+					if((total < champions.size() - 3) && (gameStart < cap) && (lives > 0))
 						nextRound();
 					else{
 						frame.dispose();
@@ -320,7 +320,7 @@ public class guiGuess_v1_3 {
 					
 					// Start new round
 					roundStart = roundEnd;
-					if((total < champions.size() - 3) && (gameStart < cap))
+					if((total < champions.size() - 3) && (gameStart < cap) && (lives > 0))
 						nextRound();
 					else{
 						frame.dispose();
@@ -343,7 +343,7 @@ public class guiGuess_v1_3 {
 					
 					// Start new round
 					roundStart = roundEnd;
-					if((total < champions.size() - 3) && (gameStart < cap))
+					if((total < champions.size() - 3) && (gameStart < cap) && (lives > 0))
 						nextRound();
 					else{
 						frame.dispose();
@@ -491,16 +491,12 @@ public class guiGuess_v1_3 {
 						
 						// Start new round
 						roundStart = roundEnd;
-						if((total < champions.size() - 3) && (gameStart < cap))
+						if(lives > 0)
 							nextRound();
-						else{
-							frame.dispose();
-							new mainFrame_v4(0);
-						}
-					}else{
-						frame.setVisible(false);
+						else
+							newGame();
+					}else
 						newGame();
-					}
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -519,11 +515,13 @@ public class guiGuess_v1_3 {
 						
 						// Start new round
 						roundStart = roundEnd;
-						nextRound();
-					}else{
-						frame.setVisible(false);
+						if(lives > 0)
+							nextRound();
+						else
+							newGame();
+					}else
 						newGame();
-					}
+					
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -542,11 +540,12 @@ public class guiGuess_v1_3 {
 						
 						// Start new round
 						roundStart = roundEnd;
-						nextRound();
-					}else{
-						frame.setVisible(false);
+						if(lives > 0)
+							nextRound();
+						else
+							newGame();
+					}else
 						newGame();
-					}
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -565,11 +564,12 @@ public class guiGuess_v1_3 {
 						
 						// Start new round
 						roundStart = roundEnd;
-						nextRound();
-					}else{
-						frame.setVisible(false);
+						if(lives > 0)
+							nextRound();
+						else
+							newGame();
+					}else
 						newGame();
-					}
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -741,7 +741,7 @@ public class guiGuess_v1_3 {
 			}
 
 			total++;
-//			System.out.println("P: " + points);
+			System.out.println("Lives: " + lives);
 		}
 		
 		// Refresh score / points
