@@ -507,7 +507,7 @@ public class guiGuess_v1_3 {
 			public void mousePressed(MouseEvent me) {
 				try {
 					if((total < champions.size() - 3) && (gameStart < cap) && (lives > 0)){
-						handleScore(0); // Scoring
+						handleScore(1); // Scoring
 						
 						// End round timer
 						roundEnd = watch.getElapsedTimeSecs();
@@ -741,7 +741,7 @@ public class guiGuess_v1_3 {
 			}
 
 			total++;
-//			System.out.println("Lives: " + lives);
+//			System.out.println(answer + ":" + spot);
 		}
 		
 		// Refresh score / points
