@@ -274,7 +274,7 @@ public class guiGuess_v1_3 {
 					
 					// Start new round
 					roundStart = roundEnd;
-					if((total < champions.size() - 3) && (gameStart < cap))
+					if((total < champions.size() - 3) && (gameStart < cap) && (lives > 0))
 						nextRound();
 					else{
 						frame.dispose();
@@ -297,7 +297,7 @@ public class guiGuess_v1_3 {
 					
 					// Start new round
 					roundStart = roundEnd;
-					if((total < champions.size() - 3) && (gameStart < cap))
+					if((total < champions.size() - 3) && (gameStart < cap) && (lives > 0))
 						nextRound();
 					else{
 						frame.dispose();
@@ -320,7 +320,7 @@ public class guiGuess_v1_3 {
 					
 					// Start new round
 					roundStart = roundEnd;
-					if((total < champions.size() - 3) && (gameStart < cap))
+					if((total < champions.size() - 3) && (gameStart < cap) && (lives > 0))
 						nextRound();
 					else{
 						frame.dispose();
@@ -343,7 +343,7 @@ public class guiGuess_v1_3 {
 					
 					// Start new round
 					roundStart = roundEnd;
-					if((total < champions.size() - 3) && (gameStart < cap))
+					if((total < champions.size() - 3) && (gameStart < cap) && (lives > 0))
 						nextRound();
 					else{
 						frame.dispose();
@@ -491,7 +491,7 @@ public class guiGuess_v1_3 {
 						
 						// Start new round
 						roundStart = roundEnd;
-						if((total < champions.size() - 3) && (gameStart < cap))
+						if((total < champions.size() - 3) && (gameStart < cap) && (lives > 0))
 							nextRound();
 						else{
 							frame.dispose();
@@ -519,7 +519,12 @@ public class guiGuess_v1_3 {
 						
 						// Start new round
 						roundStart = roundEnd;
-						nextRound();
+						if((total < champions.size() - 3) && (gameStart < cap) && (lives > 0))
+							nextRound();
+						else{
+							frame.dispose();
+							new mainFrame_v4(0);
+						}
 					}else{
 						frame.setVisible(false);
 						newGame();
@@ -542,7 +547,12 @@ public class guiGuess_v1_3 {
 						
 						// Start new round
 						roundStart = roundEnd;
-						nextRound();
+						if((total < champions.size() - 3) && (gameStart < cap) && (lives > 0))
+							nextRound();
+						else{
+							frame.dispose();
+							new mainFrame_v4(0);
+						}
 					}else{
 						frame.setVisible(false);
 						newGame();
@@ -565,7 +575,12 @@ public class guiGuess_v1_3 {
 						
 						// Start new round
 						roundStart = roundEnd;
-						nextRound();
+						if((total < champions.size() - 3) && (gameStart < cap) && (lives > 0))
+							nextRound();
+						else{
+							frame.dispose();
+							new mainFrame_v4(0);
+						}
 					}else{
 						frame.setVisible(false);
 						newGame();
@@ -741,7 +756,7 @@ public class guiGuess_v1_3 {
 			}
 
 			total++;
-//			System.out.println("P: " + points);
+//			System.out.println("Lives: " + lives);
 		}
 		
 		// Refresh score / points
