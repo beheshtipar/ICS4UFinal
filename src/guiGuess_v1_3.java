@@ -741,7 +741,7 @@ public class guiGuess_v1_3 {
 			}
 
 			total++;
-			System.out.println("Lives: " + lives);
+//			System.out.println("Lives: " + lives);
 		}
 		
 		// Refresh score / points
