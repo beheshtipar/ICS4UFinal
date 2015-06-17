@@ -118,6 +118,10 @@ public class mainFrame_v4 {
 		initialize();
 	}
 	
+	/**
+	 * Create the application again
+	 * @throws IOException 
+	 */
 	public mainFrame_v4(int score) throws IOException {
 		String disc = "You got a score of: " + score;
 		JOptionPane.showMessageDialog(this.frame, disc, "Alert", JOptionPane.WARNING_MESSAGE );
@@ -283,6 +287,9 @@ public class mainFrame_v4 {
 		});
 	}
 	
+	/*
+	 * Reset contents of the frame
+	 */
 	private void reset() throws IOException {
 		
 		// JFrame settings
