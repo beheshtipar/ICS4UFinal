@@ -141,7 +141,7 @@ public class mainFrame_v4 {
 		frame.getContentPane().add(mainPane, "name_78800221383633");									//use of background image.
 		
 		// Set up background imagery
-		BufferedImage BG = ImageIO.read(new File("src/morgana_vs_ahri_3.jpg"));
+		BufferedImage BG = ImageIO.read(new File("lib/morgana_vs_ahri_3.jpg"));
 		mainPane.setLayout(null);
 		
 		// Loading gif to be played if app is hanging
@@ -280,7 +280,7 @@ public class mainFrame_v4 {
 		frame.getContentPane().add(mainPane, "name_78800221383633");									//use of background image.
 		
 		// Set up background imagery
-		BufferedImage BG = ImageIO.read(new File("src/morgana_vs_ahri_3.jpg"));
+		BufferedImage BG = ImageIO.read(new File("lib/morgana_vs_ahri_3.jpg"));
 		mainPane.setLayout(null);
 		
 		// Create loading gif to be played if app is hanging
