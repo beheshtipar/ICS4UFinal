@@ -80,6 +80,7 @@ public class mainFrame_v4 {
 	JLabel lblLoadingGif;
 	JCheckBox checkPassive, checkDefault, checkUlti;
 	JButton btnStart;
+	JComboBox btnLives;
 	private JComboBox btnDiff;
 
 	/**
@@ -90,7 +91,7 @@ public class mainFrame_v4 {
 			public void run() {
 				try {
 					mainFrame_v4 window = new mainFrame_v4();
-					String disc = "\"Guess That Champion!\" isn't endorsed by Riot Games and doesn't reflect \nthe views or opinions of Riot Games or anyone officially involved in producing or managing League of Legends. \nLeague of Legends and Riot Games are trademarks or registered trademarks of Riot Games, Inc. League of Legends © Riot Games, Inc.";
+					String disc = "\"Guess That Champion!\" isn't endorsed by Riot Games and doesn't reflect \nthe views or opinions of Riot Games or anyone officially involved in producing or managing League of Legends. \nLeague of Legends and Riot Games are trademarks or registered trademarks of Riot Games, Inc. League of Legends ï¿½ Riot Games, Inc.";
 					JOptionPane.showMessageDialog(window.frame, disc, "Disclaimer", JOptionPane.WARNING_MESSAGE );
 					
 					// Get list of champions
@@ -234,7 +235,7 @@ public class mainFrame_v4 {
 		
 		String[] lifeString = { "1 life", "3 lives", "5 lives", "7 lives", "9 lives" };
 		
-		JComboBox btnLives = new JComboBox(lifeString);
+		btnLives = new JComboBox(lifeString);
 		btnLives.setMaximumRowCount(5);
 		btnLives.setBackground(SystemColor.inactiveCaption);
 		mainPane.setLayer(btnLives, 1);
@@ -391,7 +392,7 @@ public class mainFrame_v4 {
 		
 		String[] lifeString = { "1 life", "3 lives", "5 lives", "7 lives", "9 lives" };
 		
-		JComboBox btnLives = new JComboBox(lifeString);
+		btnLives = new JComboBox(lifeString);
 		mainPane.setLayer(btnLives, 1);
 		btnLives.setToolTipText("Lives");
 		btnDiff.setMaximumRowCount(5);
