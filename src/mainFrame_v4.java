@@ -246,7 +246,7 @@ public class mainFrame_v4 {
 					
 					int x = btnDiff.getSelectedIndex();
 					int limit = (x+1) * 30;
-					System.out.println(limit);
+//					System.out.println(limit);
 					
 					// Move on to game, pass in appropriate variables
 					if(!(checkPassive.isSelected() || checkDefault.isSelected() || checkUlti.isSelected()) )
@@ -385,7 +385,7 @@ public class mainFrame_v4 {
 					
 					int x = btnDiff.getSelectedIndex();
 					int limit = (x+1) * 30;
-					System.out.println(limit);
+//					System.out.println(limit);
 					
 					// Move on to game, pass in appropriate variables
 					if(!(checkPassive.isSelected() || checkDefault.isSelected() || checkUlti.isSelected()) )
