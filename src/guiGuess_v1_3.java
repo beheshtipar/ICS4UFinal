@@ -301,20 +301,21 @@ public class guiGuess_v1_3 {
 		champButts[0].addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent me) {
 				try {
-					handleScore(0); // Scoring
-					
-					// End round timer
-					roundEnd = watch.getElapsedTimeSecs();
-					roundTime = roundEnd-roundStart;
-					
-					// Start new round
-					roundStart = roundEnd;
-					if((total < champions.size() - 3) && (gameStart < cap) && (lives > 0))
-						nextRound();
-					else{
-						frame.dispose();
-						new mainFrame_v4(0);
-					}
+					if((total < champions.size() - 3) && (gameStart < cap) && (lives > 0)){
+						handleScore(0); // Scoring
+						
+						// End round timer
+						roundEnd = watch.getElapsedTimeSecs();
+						roundTime = roundEnd-roundStart;
+						
+						// Start new round
+						roundStart = roundEnd;
+						if(lives > 0)
+							nextRound();
+						else
+							newGame();
+					}else
+						newGame();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -324,20 +325,21 @@ public class guiGuess_v1_3 {
 		champButts[1].addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent me) {
 				try {
-					handleScore(1); // Scoring
-					
-					// End round timer
-					roundEnd = watch.getElapsedTimeSecs();
-					roundTime = roundEnd-roundStart;
-					
-					// Start new round
-					roundStart = roundEnd;
-					if((total < champions.size() - 3) && (gameStart < cap) && (lives > 0))
-						nextRound();
-					else{
-						frame.dispose();
-						new mainFrame_v4(0);
-					}
+					if((total < champions.size() - 3) && (gameStart < cap) && (lives > 0)){
+						handleScore(1); // Scoring
+						
+						// End round timer
+						roundEnd = watch.getElapsedTimeSecs();
+						roundTime = roundEnd-roundStart;
+						
+						// Start new round
+						roundStart = roundEnd;
+						if(lives > 0)
+							nextRound();
+						else
+							newGame();
+					}else
+						newGame();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -347,20 +349,21 @@ public class guiGuess_v1_3 {
 		champButts[2].addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent me) {
 				try {
-					handleScore(2); // Scoring
-					
-					// End round timer
-					roundEnd = watch.getElapsedTimeSecs();
-					roundTime = roundEnd-roundStart;
-					
-					// Start new round
-					roundStart = roundEnd;
-					if((total < champions.size() - 3) && (gameStart < cap) && (lives > 0))
-						nextRound();
-					else{
-						frame.dispose();
-						new mainFrame_v4(0);
-					}
+					if((total < champions.size() - 3) && (gameStart < cap) && (lives > 0)){
+						handleScore(2); // Scoring
+						
+						// End round timer
+						roundEnd = watch.getElapsedTimeSecs();
+						roundTime = roundEnd-roundStart;
+						
+						// Start new round
+						roundStart = roundEnd;
+						if(lives > 0)
+							nextRound();
+						else
+							newGame();
+					}else
+						newGame();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -370,20 +373,21 @@ public class guiGuess_v1_3 {
 		champButts[3].addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent me) {
 				try {
-					handleScore(3); // Scoring
-					
-					// End round timer
-					roundEnd = watch.getElapsedTimeSecs();
-					roundTime = roundEnd-roundStart;
-					
-					// Start new round
-					roundStart = roundEnd;
-					if((total < champions.size() - 3) && (gameStart < cap) && (lives > 0))
-						nextRound();
-					else{
-						frame.dispose();
-						new mainFrame_v4(0);
-					}
+					if((total < champions.size() - 3) && (gameStart < cap) && (lives > 0)){
+						handleScore(3); // Scoring
+						
+						// End round timer
+						roundEnd = watch.getElapsedTimeSecs();
+						roundTime = roundEnd-roundStart;
+						
+						// Start new round
+						roundStart = roundEnd;
+						if(lives > 0)
+							nextRound();
+						else
+							newGame();
+					}else
+						newGame();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
