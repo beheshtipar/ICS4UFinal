@@ -1,6 +1,7 @@
 /bin/
 /lib/api-key.txt
 log.txt
+<<<<<<< HEAD
 test_log.txt
 lib/akaliBG2.jpg
 lib/akaliBGy.jpg
@@ -11,3 +12,9 @@ src/test/Test.java
 Ian Bantoto - Project Log.txt
 In House Testing Log.txt
 src/test/Test.java
+=======
+lib/akaliBG2.jpg
+lib/akaliBGz.jpg
+lib/akaliBGy.jpg
+lib/akaliBGx.jpg
+>>>>>>> origin/master
