@@ -1,4 +1,5 @@
 # ICS4UFinal
 APHS ICS4U Final Summative 2015 -  by Parsa B. and Ian B.
 
-Not currently functioning due to Riot API changes
+Status: Working
+Recent Changes: Updated to Orianna v2.4.0
